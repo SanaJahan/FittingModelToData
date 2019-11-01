@@ -3,7 +3,7 @@ package mvc;
 /**
  * A POJO class representing each data in the data set which is used in training the fitting algorithms
  */
-public class DataModel {
+public class DataPoint {
   int xCoordinate;
   int yCoordinate;
 
