@@ -24,7 +24,7 @@ public class DataController {
    * @return List of individual files.
    */
   public File[] createFiles() {
-    String target_dir = "/Users/madhuripalanivelu/Documents/IDEs_Code_and_Workspaces/eclipse-workspace/FittingModelToData/data";
+    String target_dir = "data";
     File dir = new File(target_dir);
     File[] files = dir.listFiles();
     return files;
@@ -53,7 +53,7 @@ public class DataController {
             String[] coordinates = line.split(" ");
             double x = Double.parseDouble(coordinates[0]);
             double y = Double.parseDouble(coordinates[1]);
-            DataPoint dataPoint = new DataPoint((int)x,(int)y);
+            DataPoint dataPoint = new DataPoint(x,y);
             clusterDataPoints.add(dataPoint);
           }
         }
