@@ -18,19 +18,29 @@ public class DataController {
    //Both of these methods can be called by the respective algorithmic class and used accordingly.
    //Also need to find the right directory path.
 
+
   /**
-   * Reads each dataset file and will create the DataPoint objects from the coordinates mentioned,
-   * in each line of those files.
-   * They will be separated into a list of cluster data points and a list of linear data points.
-   * @throws IOException IOException may be thrown.
+   * Creates a File list from the data folder.
+   * @return List of individual files.
    */
-  public ArrayList readClusterDataset() throws IOException {
+  public File[] createFiles() {
     String target_dir = "/Users/madhuripalanivelu/Documents/IDEs_Code_and_Workspaces/eclipse-workspace/FittingModelToData/data";
     File dir = new File(target_dir);
     File[] files = dir.listFiles();
+    return files;
+  }
+
+  /**
+   * Reads each cluster dataset file and will create the DataPoint objects from the coordinates,
+   * mentioned in each line of those files.
+   * They will be separated into a list of cluster data points.
+   * @throws IOException IOException may be thrown.
+   */
+  public ArrayList readClusterDataset() throws IOException {
+
     ArrayList<DataPoint> clusterDataPoints = new ArrayList<>();
 
-    for (File f : files) {
+    for (File f : createFiles()) {
       if(f.isFile() && f.getName().contains("cluster")) {
         BufferedReader inputClusterStream = null;
 
@@ -54,17 +64,19 @@ public class DataController {
         }
       }
     }
-    System.out.println(clusterDataPoints.size());
     return clusterDataPoints;
   }
 
+  /**
+   * Reads each line dataset file and will create the DataPoint objects from the coordinates,
+   * mentioned in each line of those files.
+   * They will be separated into a list of linear data points.
+   * @throws IOException IOException may be thrown.
+   */
   public ArrayList readLinearDataset() throws IOException {
-    String target_dir = "/Users/madhuripalanivelu/Documents/IDEs_Code_and_Workspaces/eclipse-workspace/FittingModelToData/data";
-    File dir = new File(target_dir);
-    File[] files = dir.listFiles();
     ArrayList<DataPoint> linearDataPoints = new ArrayList<>();
 
-    for (File f : files) {
+    for (File f : createFiles()) {
       if(f.isFile() && f.getName().contains("line")) {
         BufferedReader inputLinearStream = null;
 
@@ -88,13 +100,7 @@ public class DataController {
         }
       }
     }
-    System.out.println(linearDataPoints.size());
     return linearDataPoints;
   }
 
-  public static void main(String[] args) throws IOException {
-    DataController d = new DataController();
-    d.readClusterDataset();
-    d.readLinearDataset();
-  }
 }
