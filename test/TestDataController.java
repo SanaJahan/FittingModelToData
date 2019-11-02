@@ -2,7 +2,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import mvc.DataController;
+import controller.DataController;
 
 import static org.junit.Assert.assertEquals;
 

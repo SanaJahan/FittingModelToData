@@ -1,7 +1,10 @@
-package mvc;
+package utility;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
+import controller.DataController;
+import model.DataPoint;
 
 /**
  * This class holds the common mean calculation methods for both the algorithmic implementations.

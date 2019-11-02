@@ -1,4 +1,4 @@
-package mvc;
+package model;
 
 /**
  * A POJO class representing each data in the data set which is used in training the fitting algorithms
