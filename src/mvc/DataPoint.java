@@ -7,6 +7,10 @@ public class DataPoint {
   int xCoordinate;
   int yCoordinate;
 
+  public DataPoint(int xCoordinate,int yCoordinate) {
+    this.xCoordinate = xCoordinate;
+    this.yCoordinate = yCoordinate;
+  }
 
   public int getxCoordinate() {
     return xCoordinate;
