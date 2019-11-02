@@ -12,12 +12,12 @@ public class DataControllerTest {
 
   @Test
   public void checkClusterDataPointListSize() throws IOException {
-    assertEquals(4500,dataController.readClusterDataset().size());
+    assertEquals(4500,dataController.readClusterDataSet().size());
   }
 
   @Test
   public void checkLinearDataPointListSize() throws IOException {
-    assertEquals(1170,dataController.readLinearDataset().size());
+    assertEquals(1170,dataController.readLineDataSet().size());
   }
 
 }

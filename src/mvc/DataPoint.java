@@ -4,19 +4,19 @@ package mvc;
  * A POJO class representing each data in the data set which is used in training the fitting algorithms
  */
 public class DataPoint {
-  int xCoordinate;
-  int yCoordinate;
+  double xCoordinate;
+  double yCoordinate;
 
-  public DataPoint(int xCoordinate,int yCoordinate) {
+  public DataPoint(double xCoordinate,double yCoordinate) {
     this.xCoordinate = xCoordinate;
     this.yCoordinate = yCoordinate;
   }
 
-  public int getxCoordinate() {
+  public double getXCoordinate() {
     return xCoordinate;
   }
 
-  public int getyCoordinate() {
+  public double getYCoordinate() {
     return yCoordinate;
   }
 }
