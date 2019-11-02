@@ -3,7 +3,7 @@ package model;
 /**
  * A POJO class representing each data in the data set which is used in training the fitting algorithms
  */
-public class DataPoint {
+final public class DataPoint {
   double xCoordinate;
   double yCoordinate;
 
