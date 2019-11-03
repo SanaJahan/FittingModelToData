@@ -1,7 +1,10 @@
-package mvc;
+package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
+import controller.AbstractDataController;
+import model.DataPoint;
 
 /**
  * This class has methods to read and manipulate data from the data set. Then the data set is sent

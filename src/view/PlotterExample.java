@@ -1,15 +1,10 @@
-package mvc; /**
+package view; /**
  * Created by ashesh on 2/19/2017.
  */
-import java.awt.*;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+
+import view.ImagePlotter;
 
 /**
  * Created by ashesh on 2/16/2017.
