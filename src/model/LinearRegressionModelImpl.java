@@ -20,6 +20,7 @@ public class LinearRegressionModelImpl implements ILinearRegressionModel{
    * @throws IOException Thrown at IOException.
    */
   public double leastSquares() throws IOException {
+    System.out.println(computeModel());
     return computeModel();
   }
 
@@ -98,7 +99,7 @@ public class LinearRegressionModelImpl implements ILinearRegressionModel{
    * @throws IllegalArgumentException Thrown when the result does not match the requirements.
    * @throws IOException Thrown at IOExeption.
    */
-  public double computeFunctionOfT() throws IllegalArgumentException,IOException {
+  public boolean computeFunctionOfT() throws IllegalArgumentException,IOException {
     dataController = new DataController();
     ArrayList<DataPoint> dc = dataController.readLineDataSet();
     double functionT = (sumOfYSquares(dc) - sumOfXSquares(dc)) * Math.cos(computeDTheta())
@@ -106,11 +107,11 @@ public class LinearRegressionModelImpl implements ILinearRegressionModel{
     double functionT180 = (sumOfYSquares(dc) - sumOfXSquares(dc)) * Math.cos(computeDTheta() + 180)
             - 2 * sumOfXYSquares(dc) * Math.sin(computeDTheta() + 180);
 
-    if (functionT > 0 && functionT180 < 0) {
-      return functionT;
+    if (functionT > 0) {
+      return true;
     }
-    else if (functionT180 > 0 && functionT < 0) {
-      return functionT180;
+    else if (functionT180 > 0 ) {
+      return false;
     }
     else {
       throw new IllegalArgumentException();
@@ -125,10 +126,19 @@ public class LinearRegressionModelImpl implements ILinearRegressionModel{
   public double computeModel() throws IOException {
     dataController = new DataController();
     meanHelper = new MeanHelper();
+    double a;
+    double b;
     double meanX = meanHelper.meanOfXCoordinates(dataController.readLineDataSet());
     double meanY = meanHelper.meanOfYCoordinates(dataController.readLineDataSet());
-    double a = Math.cos(computeFunctionOfT()/2);
-    double b = Math.sin(computeFunctionOfT()/2);
+    if (computeFunctionOfT()) {
+      a = Math.cos(computeDTheta()/2);
+      b = Math.sin(computeDTheta()/2);
+    }
+    else {
+      a = Math.cos((computeDTheta() +180) / 2);
+      b = Math.sin((computeDTheta() +180) / 2);
+    }
+
     double c = (-a * meanX) - (b * meanY);
 
     return c;

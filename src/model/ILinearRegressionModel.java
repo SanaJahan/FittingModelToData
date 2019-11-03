@@ -15,7 +15,7 @@ public interface ILinearRegressionModel {
 
   double computeDTheta() throws IOException;
 
-  double computeFunctionOfT() throws IllegalArgumentException,IOException;
+  boolean computeFunctionOfT() throws IllegalArgumentException,IOException;
 
   double computeModel() throws IOException;
 
