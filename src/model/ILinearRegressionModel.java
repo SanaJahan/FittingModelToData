@@ -1,22 +1,22 @@
 package model;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 public interface ILinearRegressionModel {
 
-  double squareOfXCoordinates(double meanOfXCoordinates);
+  double leastSquares() throws IOException;
 
-  double squareOfYCoordinates(double meanOfYCoordinates);
+  double sumOfXSquares(ArrayList<DataPoint> lineCoordinates) throws IOException;
 
-  double squareOfXYCoordinates(double meanOfXYCoordinates);
+  double sumOfYSquares(ArrayList<DataPoint> lineCoordinates) throws IOException;
 
-  double computeD();
+  double sumOfXYSquares(ArrayList<DataPoint> lineCoordinates) throws IOException;
 
-  double computeTheta();
+  double computeDTheta() throws IOException;
 
-  double computeModel(int t) throws IllegalArgumentException;// throws exception if f(t) is negative due to t
+  double computeFunctionOfT() throws IllegalArgumentException,IOException;
 
-  double computeCos(int t);
+  double computeModel() throws IOException;
 
-  double computeSin(int t);
-
-  double computeC();
 }

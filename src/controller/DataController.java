@@ -3,7 +3,6 @@ package controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import controller.AbstractDataController;
 import model.DataPoint;
 
 /**
@@ -30,7 +29,7 @@ public class DataController extends AbstractDataController {
    * in each line of those files. They will be separated into a list of data points.
    * @throws IOException IOException may be thrown.
    */
-  public ArrayList readLineDataSet() throws IOException {
+  public ArrayList<DataPoint> readLineDataSet() throws IOException {
     ArrayList<DataPoint> dataPoints = readFiles("line");
     return dataPoints;
   }

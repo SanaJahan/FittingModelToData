@@ -12,7 +12,13 @@ import model.DataPoint;
 public class MeanHelper  {
   private DataController dc;
 
-  double meanOfXCoordinates(ArrayList<DataPoint> xCoordinates) throws IOException {
+  /**
+   * Computes the mean of the X coordinates of all the DataPoints.
+   * @param xCoordinates The list of DataPoints.
+   * @return The final mean.
+   * @throws IOException Thrown at IOException.
+   */
+  public double meanOfXCoordinates(ArrayList<DataPoint> xCoordinates) throws IOException {
     double sum = 0;
     dc = new DataController();
     for (DataPoint d: xCoordinates) {
@@ -23,7 +29,13 @@ public class MeanHelper  {
     return mean;
   }// needed in k-means hence goes to abstract class
 
-  double meanOfYCoordinates(ArrayList<DataPoint> yCoordinates) throws IOException {
+  /**
+   * Computes the mean of the Y coordinates of all the DataPoints.
+   * @param yCoordinates The list of DataPoints.
+   * @return The final mean.
+   * @throws IOException Thrown at IOException.
+   */
+  public double meanOfYCoordinates(ArrayList<DataPoint> yCoordinates) throws IOException {
     double sum = 0;
     dc = new DataController();
     for (DataPoint d: yCoordinates) {
@@ -33,9 +45,4 @@ public class MeanHelper  {
     double mean = sum/totalY;
     return mean;
   }// needed in k-means hence goes to abstract class
-
-
-
-
-
 }

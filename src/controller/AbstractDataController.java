@@ -22,7 +22,7 @@ public abstract class AbstractDataController {
    */
 
   public File[] createFiles(String category) {
-    String target_dir = "../data";
+    String target_dir = "./data";
     File dir = new File(target_dir);
     File[] files = dir.listFiles((dir1, name) -> {
       boolean result;
