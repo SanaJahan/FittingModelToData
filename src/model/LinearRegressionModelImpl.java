@@ -127,8 +127,8 @@ public class LinearRegressionModelImpl implements ILinearRegressionModel{
     meanHelper = new MeanHelper();
     double meanX = meanHelper.meanOfXCoordinates(dataController.readLineDataSet());
     double meanY = meanHelper.meanOfYCoordinates(dataController.readLineDataSet());
-    double a = Math.cos(computeFunctionOfT()/2);
-    double b = Math.sin(computeFunctionOfT()/2);
+    double a = Math.cos(computeDTheta()/2);
+    double b = Math.sin(computeDTheta()/2);
     double c = (-a * meanX) - (b * meanY);
 
     return c;
