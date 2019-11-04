@@ -171,9 +171,7 @@ public class LinearRegressionModelImpl implements ILinearRegressionModel{
 
     double meanX = meanHelper.meanOfXCoordinates(dataController.readLineDataSet());
     double meanY = meanHelper.meanOfYCoordinates(dataController.readLineDataSet());
-
     double c = (-(computeA()) * meanX) - (computeB() * meanY);
-
     return c;
   }
 

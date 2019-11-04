@@ -45,4 +45,5 @@ public class MeanHelper  {
     double mean = sum/totalY;
     return mean;
   }// needed in k-means hence goes to abstract class
+
 }

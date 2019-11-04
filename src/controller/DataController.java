@@ -3,7 +3,11 @@ package controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import model.Centroid;
 import model.DataPoint;
+import model.EuclideanDistance;
+import model.IKMeansClusteringModel;
+import model.KMeansClusteringModelImpl;
 
 /**
  * This class has methods to read and manipulate data from the data set. Then the data set is sent
@@ -12,6 +16,7 @@ import model.DataPoint;
  */
 public class DataController extends AbstractDataController {
 
+  private IKMeansClusteringModel kMeansClusteringModel;
 
   /**
    * Reads each dataset file and will create the DataPoint objects from the coordinates, mentioned
@@ -19,7 +24,7 @@ public class DataController extends AbstractDataController {
    * @throws IOException IOException may be thrown.
    */
   public ArrayList readClusterDataSet() throws IOException {
-    ArrayList<DataPoint> dataPoints = readFiles("cluster");
+    ArrayList<DataPoint> dataPoints = readFiles("clusterdata-");
     return dataPoints;
   }
 
@@ -32,6 +37,12 @@ public class DataController extends AbstractDataController {
   public ArrayList<DataPoint> readLineDataSet() throws IOException {
     ArrayList<DataPoint> dataPoints = readFiles("line");
     return dataPoints;
+  }
+
+  // return the k-means result
+  public ArrayList<Centroid> reportResult() throws IOException {
+    kMeansClusteringModel = new KMeansClusteringModelImpl();
+    return kMeansClusteringModel.fit(readClusterDataSet(),3,new EuclideanDistance(),1000);
   }
 
 }
