@@ -20,8 +20,8 @@ public class LinearRegressionModelImpl implements ILinearRegressionModel{
    * @throws IOException Thrown at IOException.
    */
   public double leastSquares() throws IOException {
-    System.out.println(computeModel());
-    return computeModel();
+    System.out.println(computeC());
+    return computeC();
   }
 
   /**
@@ -119,27 +119,60 @@ public class LinearRegressionModelImpl implements ILinearRegressionModel{
   }
 
   /**
-   * Computes the final model calculation of the best fitting line.
-   * @return Final computed value for the best fitting line.
+   * Computes the cosine value of t/2.
+   * @return The cosine value of t/2.
    * @throws IOException Thrown at IOException.
    */
-  public double computeModel() throws IOException {
+  public double computeA() throws IOException {
     dataController = new DataController();
     meanHelper = new MeanHelper();
     double a;
-    double b;
     double meanX = meanHelper.meanOfXCoordinates(dataController.readLineDataSet());
     double meanY = meanHelper.meanOfYCoordinates(dataController.readLineDataSet());
     if (computeFunctionOfT()) {
       a = Math.cos(computeDTheta()/2);
-      b = Math.sin(computeDTheta()/2);
     }
     else {
       a = Math.cos((computeDTheta() +180) / 2);
+    }
+
+    return a;
+  }
+
+  /**
+   * Computes the sin value of t/2.
+   * @return The sin value of t/2.
+   * @throws IOException Thrown at IOException.
+   */
+  public double computeB() throws IOException {
+    dataController = new DataController();
+    meanHelper = new MeanHelper();
+    double b;
+    double meanX = meanHelper.meanOfXCoordinates(dataController.readLineDataSet());
+    double meanY = meanHelper.meanOfYCoordinates(dataController.readLineDataSet());
+    if (computeFunctionOfT()) {
+      b = Math.sin(computeDTheta()/2);
+    }
+    else {
       b = Math.sin((computeDTheta() +180) / 2);
     }
 
-    double c = (-a * meanX) - (b * meanY);
+    return b;
+  }
+
+  /**
+   * Computes the final model calculation of the best fitting line.
+   * @return Final computed value for the best fitting line.
+   * @throws IOException Thrown at IOException.
+   */
+  public double computeC() throws IOException {
+    dataController = new DataController();
+    meanHelper = new MeanHelper();
+
+    double meanX = meanHelper.meanOfXCoordinates(dataController.readLineDataSet());
+    double meanY = meanHelper.meanOfYCoordinates(dataController.readLineDataSet());
+
+    double c = (-(computeA()) * meanX) - (computeB() * meanY);
 
     return c;
   }

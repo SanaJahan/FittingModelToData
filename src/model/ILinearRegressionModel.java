@@ -17,6 +17,10 @@ public interface ILinearRegressionModel {
 
   boolean computeFunctionOfT() throws IllegalArgumentException,IOException;
 
-  double computeModel() throws IOException;
+  double computeA() throws IOException;
+
+  double computeB() throws IOException;
+
+  double computeC() throws IOException;
 
 }
