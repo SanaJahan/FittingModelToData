@@ -3,37 +3,37 @@ package view;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import controller.DataController;
 import model.DataPoint;
 import model.LinearRegressionModelImpl;
+import utility.MeanHelper;
 
 public class LinearRegressionView {
 
-  public double lineEquation(ArrayList<DataPoint> dataPoints) throws IOException {
-    LinearRegressionModelImpl linear = new LinearRegressionModelImpl();
-    double equation = 0;
-    for (DataPoint d:dataPoints) {
-      equation = (linear.computeA() * d.getXCoordinate()) + (linear.computeB() *
-              d.getYCoordinate()) + linear.computeC();
-    }
+  public static void main(String[] args) throws IOException {
+    displayLinearPlot();
   }
-
-  public  void main() {
+  public static void displayLinearPlot() throws IOException {;
+    DataController dataController = new DataController();
+    ArrayList<DataPoint> dataPoints = dataController.readLineDataSet();
     ImagePlotter plotter = new ImagePlotter();
     plotter.setWidth(400);
     plotter.setHeight(400);
 
     plotter.setDimensions(-300,300,-350,350);
-    for (int x = -200; x < 200; x += 20) {
-      for (int y = 0; y <= x; y += 20) {
-        plotter.addCircle(x, y, 10);
-        plotter.addPoint(x, y);
-        plotter.addLine(x, y, x + 20, y);
-        plotter.addLine(x, y, x, y + 20);
-      }
+    LinearRegressionModelImpl linear = new LinearRegressionModelImpl();
+    MeanHelper meanHelper = new MeanHelper();
+    for (DataPoint d:dataPoints) {
+//      int x = (int)Math.floor(linear.computeA() * d.getXCoordinate() + linear.computeC());
+//      int y = (int)Math.floor(linear.computeB() * d.getYCoordinate() + linear.computeC());
+      plotter.addPoint((int) Math.floor(d.getXCoordinate()), (int) Math.floor(d.getYCoordinate()));
     }
+    int x = (int)Math.floor(linear.computeA()*meanHelper.meanOfXCoordinates(dataPoints)) ;
+    int y = (int)Math.floor(linear.computeB()*meanHelper.meanOfYCoordinates(dataPoints));
+    plotter.addLine(-300,y,x,300);
 
     try {
-      plotter.write("example.png");
+      plotter.write("lineplot.png");
     } catch (IOException e) {
 
     }

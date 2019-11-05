@@ -89,7 +89,8 @@ public class LinearRegressionModelImpl implements ILinearRegressionModel{
     dataController = new DataController();
     ArrayList<DataPoint> dc = dataController.readLineDataSet();
     double d = (2 * sumOfXYSquares(dc)) / (sumOfXSquares(dc) - sumOfYSquares(dc));
-    return Math.atan(d);
+
+    return Math.atan(Math.toRadians(d));
   }
 
   /**
@@ -104,8 +105,9 @@ public class LinearRegressionModelImpl implements ILinearRegressionModel{
     ArrayList<DataPoint> dc = dataController.readLineDataSet();
     double functionT = (sumOfYSquares(dc) - sumOfXSquares(dc)) * Math.cos(computeDTheta())
             - 2 * sumOfXYSquares(dc) * Math.sin(computeDTheta());
-    double functionT180 = (sumOfYSquares(dc) - sumOfXSquares(dc)) * Math.cos(computeDTheta() + 180)
-            - 2 * sumOfXYSquares(dc) * Math.sin(computeDTheta() + 180);
+    double functionT180 = (sumOfYSquares(dc) - sumOfXSquares(dc)) * Math.cos(computeDTheta() +
+            Math.toRadians(180)) - 2 * sumOfXYSquares(dc) * Math.sin(computeDTheta()
+            + Math.toRadians(180));
 
     if (functionT > 0) {
       return true;
@@ -124,16 +126,12 @@ public class LinearRegressionModelImpl implements ILinearRegressionModel{
    * @throws IOException Thrown at IOException.
    */
   public double computeA() throws IOException {
-    dataController = new DataController();
-    meanHelper = new MeanHelper();
     double a;
-    double meanX = meanHelper.meanOfXCoordinates(dataController.readLineDataSet());
-    double meanY = meanHelper.meanOfYCoordinates(dataController.readLineDataSet());
     if (computeFunctionOfT()) {
       a = Math.cos(computeDTheta()/2);
     }
     else {
-      a = Math.cos((computeDTheta() +180) / 2);
+      a = Math.cos((computeDTheta() + Math.toRadians(180)) / 2);
     }
 
     return a;
@@ -145,16 +143,12 @@ public class LinearRegressionModelImpl implements ILinearRegressionModel{
    * @throws IOException Thrown at IOException.
    */
   public double computeB() throws IOException {
-    dataController = new DataController();
-    meanHelper = new MeanHelper();
     double b;
-    double meanX = meanHelper.meanOfXCoordinates(dataController.readLineDataSet());
-    double meanY = meanHelper.meanOfYCoordinates(dataController.readLineDataSet());
     if (computeFunctionOfT()) {
       b = Math.sin(computeDTheta()/2);
     }
     else {
-      b = Math.sin((computeDTheta() +180) / 2);
+      b = Math.sin((computeDTheta() + Math.toRadians(180)) / 2);
     }
 
     return b;

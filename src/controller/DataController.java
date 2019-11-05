@@ -7,6 +7,7 @@ import model.Centroid;
 import model.DataPoint;
 import model.EuclideanDistance;
 import model.IKMeansClusteringModel;
+import model.ILinearRegressionModel;
 import model.KMeansClusteringModelImpl;
 
 /**
@@ -17,6 +18,7 @@ import model.KMeansClusteringModelImpl;
 public class DataController extends AbstractDataController {
 
   private IKMeansClusteringModel kMeansClusteringModel;
+  private ILinearRegressionModel linearRegressionModel;
 
   /**
    * Reads each dataset file and will create the DataPoint objects from the coordinates, mentioned
@@ -35,7 +37,7 @@ public class DataController extends AbstractDataController {
    * @throws IOException IOException may be thrown.
    */
   public ArrayList<DataPoint> readLineDataSet() throws IOException {
-    ArrayList<DataPoint> dataPoints = readFiles("line");
+    ArrayList<DataPoint> dataPoints = readFiles("linedata-1");
     return dataPoints;
   }
 
@@ -44,5 +46,6 @@ public class DataController extends AbstractDataController {
     kMeansClusteringModel = new KMeansClusteringModelImpl();
     return kMeansClusteringModel.fit(readClusterDataSet(),3,new EuclideanDistance(),1000);
   }
+
 
 }
