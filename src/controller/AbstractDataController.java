@@ -11,9 +11,8 @@ import model.DataPoint;
 public abstract class AbstractDataController {
 
 
-  public abstract ArrayList readLineDataSet() throws IOException;
+  public abstract ArrayList readDataSet(String fileName) throws IOException;
 
-  public abstract ArrayList readClusterDataSet() throws IOException;
 
   /**
    * method to read dataset files for specific category of data.

@@ -27,26 +27,28 @@ public class DataController extends AbstractDataController {
    * in each line of those files. They will be separated into a list of data points.
    * @throws IOException IOException may be thrown.
    */
-  public ArrayList readClusterDataSet() throws IOException {
-    ArrayList<DataPoint> dataPoints = readFiles("clusterdata-");
+  @Override
+  public ArrayList readDataSet(String fileName) throws IOException {
+    ArrayList<DataPoint> dataPoints = readFiles(fileName);
     return dataPoints;
   }
 
 
-  /**
-   * Reads each dataset file and will create the DataPoint objects from the coordinates, mentioned
-   * in each line of those files. They will be separated into a list of data points.
-   * @throws IOException IOException may be thrown.
-   */
-  public ArrayList<DataPoint> readLineDataSet() throws IOException {
-    ArrayList<DataPoint> dataPoints = readFiles("linedata-1");
-    return dataPoints;
-  }
+
+//  /**
+//   * Reads each dataset file and will create the DataPoint objects from the coordinates, mentioned
+//   * in each line of those files. They will be separated into a list of data points.
+//   * @throws IOException IOException may be thrown.
+//   */
+//  public ArrayList<DataPoint> readLineDataSet() throws IOException {
+//    ArrayList<DataPoint> dataPoints = readFiles("linedata-1");
+//    return dataPoints;
+//  }
 
   // return the k-means result
   public ArrayList<Centroid> reportResult() throws IOException {
     kMeansClusteringModel = new KMeansClusteringModelImpl();
-    return kMeansClusteringModel.fit(readClusterDataSet(),5,new EuclideanDistance(),3000);
+    return kMeansClusteringModel.fit(readDataSet(),5,new EuclideanDistance(),3000);
   }
 
   public List<Double> report() throws IOException {
@@ -57,6 +59,5 @@ public class DataController extends AbstractDataController {
     list.add(c/linearRegressionModel.computeYCoordinate());
     return list;
   }
-
 
 }
