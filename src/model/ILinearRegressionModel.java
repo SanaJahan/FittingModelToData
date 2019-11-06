@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 public interface ILinearRegressionModel {
 
-  double leastSquares() throws IOException;
 
   double sumOfXSquares(ArrayList<DataPoint> lineCoordinates) throws IOException;
 
@@ -16,7 +15,9 @@ public interface ILinearRegressionModel {
   double computeDTheta() throws IOException;
 
   double computeFunctionOfT() throws IllegalArgumentException,IOException;
+  double computeYCoordinate() throws IOException;
+  double computeXCoordinate() throws IOException;
+  public double computeC() throws IOException;
 
-  double computeModel() throws IOException;
 
 }

@@ -14,7 +14,6 @@ public class TestLinearRegressionModel {
   @Test
   public void linearModelTestOne() throws IOException {
     linear = new LinearRegressionModelImpl();
-    linear.leastSquares();
   }
 
 }

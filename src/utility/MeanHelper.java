@@ -42,7 +42,7 @@ public class MeanHelper  {
       sum += d.getYCoordinate();
     }
     int totalY = dc.readLineDataSet().size();
-    double mean = sum/totalY;
+  double mean = sum/totalY;
     return mean;
   }// needed in k-means hence goes to abstract class
 

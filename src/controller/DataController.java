@@ -2,12 +2,15 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import model.Centroid;
 import model.DataPoint;
 import model.EuclideanDistance;
 import model.IKMeansClusteringModel;
+import model.ILinearRegressionModel;
 import model.KMeansClusteringModelImpl;
+import model.LinearRegressionModelImpl;
 
 /**
  * This class has methods to read and manipulate data from the data set. Then the data set is sent
@@ -17,6 +20,7 @@ import model.KMeansClusteringModelImpl;
 public class DataController extends AbstractDataController {
 
   private IKMeansClusteringModel kMeansClusteringModel;
+  private ILinearRegressionModel linearRegressionModel;
 
   /**
    * Reads each dataset file and will create the DataPoint objects from the coordinates, mentioned
@@ -35,14 +39,23 @@ public class DataController extends AbstractDataController {
    * @throws IOException IOException may be thrown.
    */
   public ArrayList<DataPoint> readLineDataSet() throws IOException {
-    ArrayList<DataPoint> dataPoints = readFiles("line");
+    ArrayList<DataPoint> dataPoints = readFiles("linedata-1");
     return dataPoints;
   }
 
   // return the k-means result
   public ArrayList<Centroid> reportResult() throws IOException {
     kMeansClusteringModel = new KMeansClusteringModelImpl();
-    return kMeansClusteringModel.fit(readClusterDataSet(),3,new EuclideanDistance(),1000);
+    return kMeansClusteringModel.fit(readClusterDataSet(),5,new EuclideanDistance(),3000);
+  }
+
+  public List<Double> report() throws IOException {
+    linearRegressionModel = new LinearRegressionModelImpl();
+    List<Double> list = new ArrayList<>();
+    double c = linearRegressionModel.computeC();
+    list.add(linearRegressionModel.computeXCoordinate()/c);
+    list.add(linearRegressionModel.computeYCoordinate()/c);
+    return list;
   }
 
 }
