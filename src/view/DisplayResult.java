@@ -19,13 +19,13 @@ public class DisplayResult {
     plotter.setWidth(400);
     plotter.setHeight(400);
 
-    plotter.setDimensions(-300,500,-350,550);
+    plotter.setDimensions(-300,800,-350,800);
 
-    Color[] color = {Color.GREEN,Color.RED,Color.BLUE};
+    Color[] color = {Color.CYAN,Color.RED,Color.BLACK,Color.BLUE,Color.GREEN, Color.LIGHT_GRAY};
     int i = 0;
     ArrayList<Centroid> centroids = dataController.reportResult();
     for (Centroid c: centroids) {
-      plotter.addPoint((int)Math.floor(c.getxCoordinate()),(int)Math.floor(c.getyCoordinate()));
+      plotter.addPoint((int)Math.floor(c.getxCoordinate()),(int)Math.floor(c.getyCoordinate()),Color.YELLOW);
       if(c.getDataPoints() != null) {
         for (DataPoint d : c.getDataPoints()) {
           plotter.addPoint((int) Math.floor(d.getXCoordinate()), (int) Math.floor(d.getYCoordinate()), color[i]);
@@ -35,7 +35,7 @@ public class DisplayResult {
     }
 
     try {
-      plotter.write("kMeans.png");
+      plotter.write("kMeans7.png");
     } catch (IOException e) {
       e.printStackTrace();
     }

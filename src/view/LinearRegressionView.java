@@ -28,9 +28,9 @@ public class LinearRegressionView {
 //      int y = (int)Math.floor(linear.computeB() * d.getYCoordinate() + linear.computeC());
       plotter.addPoint((int) Math.floor(d.getXCoordinate()), (int) Math.floor(d.getYCoordinate()));
     }
-    int x = (int)Math.floor(linear.computeA()*meanHelper.meanOfXCoordinates(dataPoints)) ;
-    int y = (int)Math.floor(linear.computeB()*meanHelper.meanOfYCoordinates(dataPoints));
-    plotter.addLine(-300,y,x,300);
+//    int x = (int)Math.floor(linear.computeA()*meanHelper.meanOfXCoordinates(dataPoints)) ;
+//    int y = (int)Math.floor(linear.computeB()*meanHelper.meanOfYCoordinates(dataPoints));
+//    plotter.addLine(-300,y,x,300);
 
     try {
       plotter.write("lineplot.png");
