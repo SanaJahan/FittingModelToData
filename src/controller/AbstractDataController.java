@@ -16,7 +16,9 @@ public abstract class AbstractDataController {
   public abstract void readDataSet(String fileName) throws IOException;
 
   public abstract ArrayList<Centroid> getKMeansCluster();
+
   public abstract List<Double> getLinearBestFit() throws IOException;
+  
   public abstract ArrayList<DataPoint> getDataPoints();
 
   /**
