@@ -1,14 +1,9 @@
 package model;
 
-import java.io.IOException;
-
-import controller.DataController;
-
 public class EuclideanDistance implements Distance {
-  private DataController dataController;
 
   @Override
-  public double calculate(DataPoint d1, Centroid d2) throws IOException {
+  public double calculate(DataPoint d1, Centroid d2) {
     double sum = 0;
     double px1 = d1.getXCoordinate();
     double py1 = d1.getYCoordinate();

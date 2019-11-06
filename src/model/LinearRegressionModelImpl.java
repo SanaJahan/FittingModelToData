@@ -12,13 +12,13 @@ import utility.MeanHelper;
  */
 public class LinearRegressionModelImpl implements ILinearRegressionModel{
   private MeanHelper meanHelper = new MeanHelper();
-  private DataController dataController = new DataController();
-  private final ArrayList<DataPoint> dataPoints = dataController.readLineDataSet();
+  private ArrayList<DataPoint> dataPoints;
   private final double meanY = meanHelper.meanOfYCoordinates(dataPoints);
   private final double meanX = meanHelper.meanOfYCoordinates(dataPoints);
   private static double t = 0;
 
-  public LinearRegressionModelImpl() throws IOException {
+  public LinearRegressionModelImpl(ArrayList<DataPoint> dataPoints) throws IOException {
+    this.dataPoints = dataPoints;
   }
 
 

@@ -35,24 +35,26 @@ public class DataController extends AbstractDataController {
 
 
 
-//  /**
-//   * Reads each dataset file and will create the DataPoint objects from the coordinates, mentioned
-//   * in each line of those files. They will be separated into a list of data points.
-//   * @throws IOException IOException may be thrown.
-//   */
-//  public ArrayList<DataPoint> readLineDataSet() throws IOException {
-//    ArrayList<DataPoint> dataPoints = readFiles("linedata-1");
-//    return dataPoints;
-//  }
-
-  // return the k-means result
-  public ArrayList<Centroid> reportResult() throws IOException {
-    kMeansClusteringModel = new KMeansClusteringModelImpl();
-    return kMeansClusteringModel.fit(readDataSet(),5,new EuclideanDistance(),3000);
+  /**
+   * Reads each dataset file and will create the DataPoint objects from the coordinates, mentioned
+   * in each line of those files. They will be separated into a list of data points.
+   * @throws IOException IOException may be thrown.
+   */
+  public ArrayList<DataPoint> readLineDataSet() throws IOException {
+    ArrayList<DataPoint> dataPoints = readFiles("linedata");
+    return dataPoints;
   }
 
-  public List<Double> report() throws IOException {
-    linearRegressionModel = new LinearRegressionModelImpl();
+
+
+  // return the k-means result
+  public ArrayList<Centroid> getKMeansCluster(String input) throws IOException {
+    kMeansClusteringModel = new KMeansClusteringModelImpl();
+    return kMeansClusteringModel.fit(readDataSet(input),5,new EuclideanDistance(),3000);
+  }
+
+  public List<Double> getLinearBestFit(String input) throws IOException {
+    linearRegressionModel = new LinearRegressionModelImpl(readDataSet(input));
     List<Double> list = new ArrayList<>();
     double c = linearRegressionModel.computeC();
     list.add(c/linearRegressionModel.computeXCoordinate());

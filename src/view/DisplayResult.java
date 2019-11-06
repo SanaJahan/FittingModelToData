@@ -23,7 +23,7 @@ public class DisplayResult {
 
     Color[] color = {Color.CYAN,Color.RED,Color.BLACK,Color.BLUE,Color.GREEN, Color.LIGHT_GRAY};
     int i = 0;
-    ArrayList<Centroid> centroids = dataController.reportResult();
+    ArrayList<Centroid> centroids = dataController.getKMeansCluster();
     for (Centroid c: centroids) {
       plotter.addPoint((int)Math.floor(c.getxCoordinate()),(int)Math.floor(c.getyCoordinate()),Color.YELLOW);
       if(c.getDataPoints() != null) {
