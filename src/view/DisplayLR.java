@@ -7,8 +7,15 @@ import model.DataPoint;
 
 public class DisplayLR {
 
-  private static DataController dataController = new DataController();
+  private static DataController dataController;
 
+  static {
+    try {
+      dataController = new DataController("linear");
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
 
 
   public static void main(String[] args) throws IOException {

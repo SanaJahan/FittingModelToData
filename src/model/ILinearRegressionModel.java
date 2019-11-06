@@ -14,10 +14,10 @@ public interface ILinearRegressionModel {
 
   double computeDTheta() throws IOException;
 
-  double computeFunctionOfT() throws IllegalArgumentException,IOException;
+  void computeFunctionOfT() throws IllegalArgumentException,IOException;
   double computeYCoordinate() throws IOException;
   double computeXCoordinate() throws IOException;
-  public double computeC() throws IOException;
+  double computeC() throws IOException;
 
 
 }

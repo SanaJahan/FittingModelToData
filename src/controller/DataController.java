@@ -25,6 +25,10 @@ public class DataController extends AbstractDataController {
   private ILinearRegressionModel linearRegressionModel;
   private ArrayList<DataPoint> dataPoints;
 
+  public DataController(String input) throws IOException {
+    readDataSet(input);
+  }
+
 
   /**
    * Reads each dataset file and will create the DataPoint objects from the coordinates, mentioned
@@ -36,12 +40,6 @@ public class DataController extends AbstractDataController {
   public void readDataSet(String fileName) throws IOException {
     dataPoints = readFiles(fileName);
   }
-
-
-@Override
-public int getDataSize() {
-    return dataPoints.size();
-}
 
   public ArrayList<DataPoint> getDataPoints() {
     return dataPoints;
