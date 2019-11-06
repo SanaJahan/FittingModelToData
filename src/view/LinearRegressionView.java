@@ -5,7 +5,7 @@ import java.io.IOException;
 import controller.DataController;
 import model.DataPoint;
 
-public class DisplayLR {
+public class LinearRegressionView {
 
   private static DataController dataController;
 

@@ -8,7 +8,7 @@ import controller.DataController;
 import model.Centroid;
 import model.DataPoint;
 
-public class DisplayResult {
+public class KMeansClusterView {
 
   public static void main(String[] args) throws IOException {
      displayClusterMean();
