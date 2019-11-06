@@ -35,7 +35,7 @@ public class DisplayResult {
     }
 
     try {
-      plotter.write("kMeans7.png");
+      plotter.write("kMeans8.png");
     } catch (IOException e) {
       e.printStackTrace();
     }

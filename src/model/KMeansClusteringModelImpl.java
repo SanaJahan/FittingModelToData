@@ -4,9 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
-import javax.xml.crypto.Data;
-
-import controller.DataController;
 import utility.MeanHelper;
 
 public class KMeansClusteringModelImpl implements IKMeansClusteringModel {
@@ -15,6 +12,7 @@ public class KMeansClusteringModelImpl implements IKMeansClusteringModel {
   private double error = Double.POSITIVE_INFINITY;
   private double ne = 0;
   private double percentageError = 0;
+  private ArrayList<Centroid> finalCentroids = new ArrayList<>();
 
 
   @Override
@@ -124,22 +122,15 @@ public class KMeansClusteringModelImpl implements IKMeansClusteringModel {
       if (shouldTerminate) {
         break;
       }
+      // percentage error threshold
+      if (percentageError == 0.01) {
+        break;
+      }
 
       // at the end of each iteration we should relocate the centroids
       clusters = relocateCentroids(clusters);
       // calculate average  for each dataPoint in that centroid, and assign to ne
       ne = newError(clusters, distance);
-      if (i == 0) {
-        error = ne;
-      }
-      // calculate percentage error
-      percentageError = Math.abs(ne - error) / error;
-      error = ne;
-      // percentage error threshold
-      if (percentageError == 0.01) {
-        break;
-      }
-      error = ne;
     }
 
     return lastState;
@@ -164,4 +155,19 @@ public class KMeansClusteringModelImpl implements IKMeansClusteringModel {
   }
 
 
+  @Override
+  public ArrayList<Centroid> bestFit(ArrayList<DataPoint> dataPoints, int k, Distance distance, int max) throws IOException {
+    for (int i = 0; i < 10; i++) {
+      ArrayList<Centroid> centroids = fit(dataPoints, k, new EuclideanDistance(), max);
+      if (ne < error) {
+        error = ne;
+        // calculate percentage error
+        percentageError = Math.abs(ne - error) / error;
+        error = ne;
+        finalCentroids = centroids;
+      }
+    }
+
+    return finalCentroids;
+  }
 }

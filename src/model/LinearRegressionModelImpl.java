@@ -28,7 +28,7 @@ public class LinearRegressionModelImpl implements ILinearRegressionModel{
    * @return The total summation.
    * @throws IOException Thrown at IOException.
    */
-  public double sumOfYSquares(ArrayList<DataPoint> lineCoordinates) throws IOException {
+  public double sumOfYSquares(ArrayList<DataPoint> lineCoordinates)  {
     double sum = 0;
     for (DataPoint d:lineCoordinates) {
       sum += (d.getYCoordinate() - meanY) * (d.getYCoordinate() - meanY);
@@ -43,7 +43,7 @@ public class LinearRegressionModelImpl implements ILinearRegressionModel{
    * @return The total summation.
    * @throws IOException Thrown at IOException.
    */
-  public double sumOfXSquares(ArrayList<DataPoint> lineCoordinates) throws IOException {
+  public double sumOfXSquares(ArrayList<DataPoint> lineCoordinates) {
     double sum = 0;
     for (DataPoint d:lineCoordinates) {
       sum += (d.getXCoordinate() - meanX) * (d.getXCoordinate() - meanX);
@@ -58,7 +58,7 @@ public class LinearRegressionModelImpl implements ILinearRegressionModel{
    * @return The total summation.
    * @throws IOException Thrown at IOException.
    */
-  public double sumOfXYSquares(ArrayList<DataPoint> lineCoordinates) throws IOException {
+  public double sumOfXYSquares(ArrayList<DataPoint> lineCoordinates) {
     double sum = 0;
     for (DataPoint d:lineCoordinates) {
       sum += (d.getXCoordinate() - meanX) * (d.getYCoordinate() - meanY);
@@ -72,7 +72,7 @@ public class LinearRegressionModelImpl implements ILinearRegressionModel{
    * @return Tan inverse value.
    * @throws IOException Thrown at the IOException.
    */
-  public double computeDTheta() throws IOException{
+  public double computeDTheta() {
     double d = (2 * sumOfXYSquares(dataPoints)) / (sumOfXSquares(dataPoints) - sumOfYSquares(dataPoints));
     return Math.atan(d);
   }
@@ -84,7 +84,7 @@ public class LinearRegressionModelImpl implements ILinearRegressionModel{
    * @throws IllegalArgumentException Thrown when the result does not match the requirements.
    * @throws IOException Thrown at IOException.
    */
-  public void computeFunctionOfT() throws IllegalArgumentException,IOException {
+  public void computeFunctionOfT() throws IllegalArgumentException {
     double functionT = ((sumOfYSquares(dataPoints) - sumOfXSquares(dataPoints)) * Math.cos(computeDTheta()))
             - 2 * sumOfXYSquares(dataPoints) * Math.sin(computeDTheta());
     double functionT180 = ((sumOfYSquares(dataPoints) - sumOfXSquares(dataPoints)) * Math.cos(computeDTheta() + Math.PI))
@@ -92,7 +92,7 @@ public class LinearRegressionModelImpl implements ILinearRegressionModel{
     if (functionT > 0) {
       t = computeDTheta();
     }
-    else if(functionT180 > 0 ){
+    else if (functionT180 > 0){
       t = computeDTheta() + Math.PI;
     }
     else {
@@ -100,23 +100,32 @@ public class LinearRegressionModelImpl implements ILinearRegressionModel{
     }
   }
 
+
   /**
-   * Computes the final model calculation of the best fitting line.
-   * @return Final computed value for the best fitting line.
-   * @throws IOException Thrown at IOException.
+   * Computes the a value.
+   * @return a
    */
-  public double computeXCoordinate() throws IOException {
+  public double computeXCoordinate() {
     computeFunctionOfT();
     double a = Math.cos(t/2);
     return a;
   }
 
+  /**
+   * Computes the b value.
+   * @return b
+   */
   public double computeYCoordinate() {
     double b = Math.sin(t/2);
     return b;
   }
 
-  public double computeC() throws IOException {
+  /**
+   * Computes the final model calculation of the best fitting line.
+   * @return Final computed value for the best fitting line.
+   * @throws IOException Thrown at IOException.
+   */
+  public double computeC() {
     double c = -computeXCoordinate() * meanX - computeYCoordinate() * meanY;
     return -c;
   }

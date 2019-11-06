@@ -13,7 +13,7 @@ public interface IKMeansClusteringModel {
    *
    * @return the randomly chosen k points for the cluster
    */
-  public ArrayList<Centroid> createClusters(ArrayList<DataPoint> dataSets, int k);
+  ArrayList<Centroid> createClusters(ArrayList<DataPoint> dataSets, int k);
   Centroid nearestCentroid(DataPoint dataPoint, ArrayList<Centroid> clusters, Distance distance) throws IOException;
 
   void assignToCluster(ArrayList<Centroid> clusters, DataPoint dataPoint, Centroid centroid);
@@ -25,5 +25,7 @@ public interface IKMeansClusteringModel {
   ArrayList<Centroid> fit(ArrayList<DataPoint> dataPoints, int k, Distance distance, int maxIterations) throws IOException;
 
   double newError(ArrayList<Centroid> centroids, Distance distance) throws IOException;
+
+  ArrayList<Centroid> bestFit(ArrayList<DataPoint> dataPoints, int k, Distance distance, int max) throws IOException;
 
 }
