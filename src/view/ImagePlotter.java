@@ -1,4 +1,4 @@
-package mvc;
+package view;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
