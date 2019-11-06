@@ -19,6 +19,7 @@ public class LinearRegressionModelImpl implements ILinearRegressionModel {
     this.dataPoints = dataPoints;
     meanY = meanHelper.meanOfYCoordinates(dataPoints);
     meanX = meanHelper.meanOfXCoordinates(dataPoints);
+    computeFunctionOfT();
   }
 
 
@@ -34,6 +35,7 @@ public class LinearRegressionModelImpl implements ILinearRegressionModel {
     for (DataPoint d : lineCoordinates) {
       sum += ((d.getYCoordinate() - meanY) * (d.getYCoordinate() - meanY));
     }
+    System.out.println("Y SQUARES" + sum);
     return sum;
   }
 
@@ -49,6 +51,7 @@ public class LinearRegressionModelImpl implements ILinearRegressionModel {
     for (DataPoint d : lineCoordinates) {
       sum += ((d.getXCoordinate() - meanX) * (d.getXCoordinate() - meanX));
     }
+    System.out.println("X SQUARES"+sum);
     return sum;
   }
 
@@ -64,6 +67,7 @@ public class LinearRegressionModelImpl implements ILinearRegressionModel {
     for (DataPoint d : lineCoordinates) {
       sum += (d.getXCoordinate() - meanX) * (d.getYCoordinate() - meanY);
     }
+    System.out.println("XY SUM" + sum);
     return sum;
   }
 
@@ -75,6 +79,7 @@ public class LinearRegressionModelImpl implements ILinearRegressionModel {
    */
   public double computeDTheta() {
     double d = (2 * sumOfXYSquares(dataPoints)) / (sumOfXSquares(dataPoints) - sumOfYSquares(dataPoints));
+    System.out.print(Math.atan(d));
     return Math.atan(d);
   }
 
@@ -105,7 +110,6 @@ public class LinearRegressionModelImpl implements ILinearRegressionModel {
    * @return Final computed value for the best fitting line.
    */
   public double computeXCoordinate() {
-    computeFunctionOfT();
     System.out.println("a:"+Math.cos(t / 2));
     return Math.cos(t / 2);
   }
@@ -116,6 +120,8 @@ public class LinearRegressionModelImpl implements ILinearRegressionModel {
   }
 
   public double computeC() {
+    double x = (-1 * computeXCoordinate() * meanX) - (computeYCoordinate() * meanY);
+    System.out.println("c:"+ x);
     return (-1 * computeXCoordinate() * meanX) - (computeYCoordinate() * meanY);
   }
 
