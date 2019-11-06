@@ -6,11 +6,15 @@ import controller.DataController;
 import model.DataPoint;
 
 public class DisplayLR {
+
+  private static DataController dataController = new DataController();
+
+
+
   public static void main(String[] args) throws IOException {
     displayLinearRegression();
   }
   public static void displayLinearRegression() throws IOException {
-    DataController dataController = new DataController();
     ImagePlotter plotter = new ImagePlotter();
     plotter.setWidth(500);
     plotter.setHeight(500);
@@ -19,9 +23,8 @@ public class DisplayLR {
 
     plotter.addLine(-300,(int)Math.floor(dataController.getLinearBestFit().get(1)),
             (int)Math.floor(dataController.getLinearBestFit().get(0)),300);
-      for (DataPoint d : dataController.readLineDataSet()){
+      for (DataPoint d : dataController.getDataPoints())
         plotter.addPoint((int) Math.floor(d.getXCoordinate()), (int) Math.floor(d.getYCoordinate()));
-      }
 
 
     try {

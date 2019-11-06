@@ -6,13 +6,16 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import model.Centroid;
 import model.DataPoint;
 
 public abstract class AbstractDataController {
 
 
-  public abstract ArrayList readDataSet(String fileName) throws IOException;
+  public abstract void readDataSet(String fileName) throws IOException;
 
+  public abstract ArrayList<Centroid> getKMeansCluster() throws IOException;
+  public  abstract int getDataSize();
 
   /**
    * method to read dataset files for specific category of data.
