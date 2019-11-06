@@ -32,11 +32,11 @@ public class KMeansClusteringModelImpl implements IKMeansClusteringModel {
 
 
   @Override
-  public Centroid nearestCentroid(DataPoint dataPoint, ArrayList<Centroid> clusters, Distance distance) throws IOException {
+  public Centroid nearestCentroid(DataPoint dataPoint, ArrayList<Centroid> clusters, IDistance IDistance) throws IOException {
     double minimumDistance = Double.MAX_VALUE;
     Centroid nearest = null;
     for (Centroid cluster : clusters) {
-      double currentDistance = distance.calculate(dataPoint, cluster);
+      double currentDistance = IDistance.calculate(dataPoint, cluster);
       if (currentDistance < minimumDistance) {
         minimumDistance = currentDistance;
         nearest = cluster;
@@ -102,7 +102,7 @@ public class KMeansClusteringModelImpl implements IKMeansClusteringModel {
 
   // method to improve the result
   @Override
-  public ArrayList<Centroid> fit(ArrayList<DataPoint> dataPoints, int k, Distance distance, int maxIterations) throws IOException {
+  public ArrayList<Centroid> fit(ArrayList<DataPoint> dataPoints, int k, IDistance IDistance, int maxIterations) throws IOException {
     ArrayList<Centroid> clusters = createClusters(dataPoints, k);
     ArrayList<Centroid> lastState = new ArrayList<>();
 
@@ -112,7 +112,7 @@ public class KMeansClusteringModelImpl implements IKMeansClusteringModel {
       boolean isLastIteration = i == maxIterations - 1;
       // in each iteration we should find the nearest centroid for each dataPoint
       for (DataPoint dataPoint : dataPoints) {
-        Centroid centroid = nearestCentroid(dataPoint, clusters, distance);
+        Centroid centroid = nearestCentroid(dataPoint, clusters, IDistance);
         assignToCluster(clusters, dataPoint, centroid);
       }
 
@@ -130,7 +130,7 @@ public class KMeansClusteringModelImpl implements IKMeansClusteringModel {
       // at the end of each iteration we should relocate the centroids
       clusters = relocateCentroids(clusters);
       // calculate average  for each dataPoint in that centroid, and assign to ne
-      ne = newError(clusters, distance);
+      ne = newError(clusters, IDistance);
     }
 
     return lastState;
@@ -139,13 +139,13 @@ public class KMeansClusteringModelImpl implements IKMeansClusteringModel {
 
   //method to compute ne
   @Override
-  public double newError(ArrayList<Centroid> centroids, Distance distance) {
+  public double newError(ArrayList<Centroid> centroids, IDistance IDistance) {
     double error = 0;
     double avgOf = 1;
     for (Centroid centroid : centroids) {
       if (centroid.getDataPoints() != null) {
         for (DataPoint dataPoint : centroid.getDataPoints()) {
-          double currentDistance = distance.calculate(dataPoint, centroid);
+          double currentDistance = IDistance.calculate(dataPoint, centroid);
           error += currentDistance;
         }
         avgOf += centroid.getDataPoints().size();
@@ -156,7 +156,7 @@ public class KMeansClusteringModelImpl implements IKMeansClusteringModel {
 
 
   @Override
-  public ArrayList<Centroid> bestFit(ArrayList<DataPoint> dataPoints, int k, Distance distance, int max) throws IOException {
+  public ArrayList<Centroid> bestFit(ArrayList<DataPoint> dataPoints, int k, IDistance IDistance, int max) throws IOException {
     for (int i = 0; i < 10; i++) {
       ArrayList<Centroid> centroids = fit(dataPoints, k, new EuclideanDistance(), max);
       if (ne < error) {

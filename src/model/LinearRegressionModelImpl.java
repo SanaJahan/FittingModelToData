@@ -13,10 +13,10 @@ public class LinearRegressionModelImpl implements ILinearRegressionModel{
   private MeanHelper meanHelper = new MeanHelper();
   private ArrayList<DataPoint> dataPoints;
   private final double meanY = meanHelper.meanOfYCoordinates(dataPoints);
-  private final double meanX = meanHelper.meanOfYCoordinates(dataPoints);
+  private final double meanX = meanHelper.meanOfXCoordinates(dataPoints);
   private static double t = 0;
 
-  public LinearRegressionModelImpl(ArrayList<DataPoint> dataPoints) throws IOException {
+  public LinearRegressionModelImpl(ArrayList<DataPoint> dataPoints) {
     this.dataPoints = dataPoints;
   }
 
@@ -92,7 +92,7 @@ public class LinearRegressionModelImpl implements ILinearRegressionModel{
     if (functionT > 0) {
       t = computeDTheta();
     }
-    else if (functionT180 > 0){
+    else if(functionT180 > 0 ) {
       t = computeDTheta() + Math.PI;
     }
     else {
@@ -100,10 +100,10 @@ public class LinearRegressionModelImpl implements ILinearRegressionModel{
     }
   }
 
-
   /**
-   * Computes the a value.
-   * @return a
+   * Computes the final model calculation of the best fitting line.
+   * @return Final computed value for the best fitting line.
+   * @throws IOException Thrown at IOException.
    */
   public double computeXCoordinate() {
     computeFunctionOfT();
@@ -111,20 +111,11 @@ public class LinearRegressionModelImpl implements ILinearRegressionModel{
     return a;
   }
 
-  /**
-   * Computes the b value.
-   * @return b
-   */
   public double computeYCoordinate() {
     double b = Math.sin(t/2);
     return b;
   }
 
-  /**
-   * Computes the final model calculation of the best fitting line.
-   * @return Final computed value for the best fitting line.
-   * @throws IOException Thrown at IOException.
-   */
   public double computeC() {
     double c = -computeXCoordinate() * meanX - computeYCoordinate() * meanY;
     return -c;

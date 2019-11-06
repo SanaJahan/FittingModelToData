@@ -8,13 +8,13 @@ import controller.DataController;
 import model.Centroid;
 import model.DataPoint;
 
-public class DisplayResult {
+public class KMeansClusterView {
 
   public static void main(String[] args) throws IOException {
      displayClusterMean();
   }
   public static void displayClusterMean() throws IOException {
-    DataController dataController = new DataController();
+    DataController dataController = new DataController("cluster");
     ImagePlotter plotter = new ImagePlotter();
     plotter.setWidth(400);
     plotter.setHeight(400);

@@ -5,10 +5,17 @@ import java.io.IOException;
 import controller.DataController;
 import model.DataPoint;
 
-public class DisplayLR {
+public class LinearRegressionView {
 
-  private static DataController dataController = new DataController();
+  private static DataController dataController;
 
+  static {
+    try {
+      dataController = new DataController("linedata-1");
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
 
 
   public static void main(String[] args) throws IOException {

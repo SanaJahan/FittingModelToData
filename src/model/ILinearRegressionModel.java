@@ -17,7 +17,7 @@ public interface ILinearRegressionModel {
   void computeFunctionOfT() throws IllegalArgumentException,IOException;
   double computeYCoordinate() throws IOException;
   double computeXCoordinate() throws IOException;
-  public double computeC() throws IOException;
+  double computeC() throws IOException;
 
 
 }

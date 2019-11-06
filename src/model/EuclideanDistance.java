@@ -1,6 +1,6 @@
 package model;
 
-public class EuclideanDistance implements Distance {
+public class EuclideanDistance implements IDistance {
 
   @Override
   public double calculate(DataPoint d1, Centroid d2) {

@@ -3,14 +3,12 @@ package utility;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import controller.DataController;
 import model.DataPoint;
 
 /**
  * This class holds the common mean calculation methods for both the algorithmic implementations.
  */
 public class MeanHelper  {
-  private DataController dc;
 
   /**
    * Computes the mean of the X coordinates of all the DataPoints.
@@ -23,7 +21,7 @@ public class MeanHelper  {
     for (DataPoint d: xCoordinates) {
       sum += d.getXCoordinate();
     }
-    int totalX = dc.getDataSize();
+    int totalX = xCoordinates.size();
     double mean = sum/totalX;
     return mean;
   }// needed in k-means hence goes to abstract class
@@ -39,7 +37,7 @@ public class MeanHelper  {
     for (DataPoint d: yCoordinates) {
       sum += d.getYCoordinate();
     }
-    int totalY = dc.getDataSize();
+    int totalY = yCoordinates.size();
   double mean = sum/totalY;
     return mean;
   }// needed in k-means hence goes to abstract class
