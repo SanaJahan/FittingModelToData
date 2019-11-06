@@ -15,27 +15,32 @@ public class KMeansClusteringModelImpl implements IKMeansClusteringModel {
 
 
   @Override
-  public ArrayList<Centroid> createClusters(ArrayList<DataPoint> dataSets, int k) {
-    ArrayList<Centroid> clusters = new ArrayList<>();
-    for (int i = 0; i < k; i++) {
-      DataPoint d = dataSets.get(random.nextInt(dataSets.size() - 1));
-      double xCoordinate = d.getXCoordinate();
-      double yCoordinate = d.getYCoordinate();
-      Centroid centroid = new Centroid(xCoordinate, yCoordinate);
-      if (!clusters.contains(centroid)) {
-        clusters.add(centroid);
-      }
+  public ArrayList<Centroid> createClusters(ArrayList<DataPoint> dataSets, int k) throws IllegalArgumentException {
+    if (dataSets == null || dataSets.size() < 1) {
+      throw new IllegalArgumentException("no data sets found");
     }
-    return clusters;
+    if( k <= dataSets.size()) {
+      ArrayList<Centroid> clusters = new ArrayList<>();
+      for (int i = 0; i < k; i++) {
+        Centroid centroid = createCentroid(dataSets);
+        // in this case, cluster is less than k
+        if (!clusters.contains(centroid)) {
+          clusters.add(centroid);
+        }
+      }
+      return clusters;
+    } else {
+      throw new IllegalArgumentException("k cannot be greater than the size of the data points");
+    }
   }
 
 
   @Override
-  public Centroid nearestCentroid(DataPoint dataPoint, ArrayList<Centroid> clusters, IDistance IDistance) {
+  public Centroid nearestCentroid(DataPoint dataPoint, ArrayList<Centroid> clusters, IDistance distance) {
     double minimumDistance = Double.MAX_VALUE;
     Centroid nearest = null;
     for (Centroid cluster : clusters) {
-      double currentDistance = IDistance.calculate(dataPoint, cluster);
+      double currentDistance = distance.calculate(dataPoint, cluster);
       if (currentDistance < minimumDistance) {
         minimumDistance = currentDistance;
         nearest = cluster;
@@ -48,27 +53,25 @@ public class KMeansClusteringModelImpl implements IKMeansClusteringModel {
 
   @Override
   public void assignToCluster(ArrayList<Centroid> clusters, DataPoint dataPoint, Centroid centroid) {
-      // if the centroid not part of the cluster simply return
-      if (!clusters.contains(centroid)) {
+    // if the centroid not part of the cluster simply return
+    if (!clusters.contains(centroid)) {
+      return;
+    }
+      // if the list of the centroid is null, create a new list and then add it
+      if (centroid.getDataPoints() == null) {
+        ArrayList<DataPoint> d = new ArrayList<>();
+        d.add(dataPoint);
+        centroid.setDataPoints(d);
         return;
       }
-      if (clusters.contains(centroid)) {
-        // if the list of the centroid is null, create a new list and then add it
-        if (centroid.getDataPoints() == null) {
-          ArrayList<DataPoint> d = new ArrayList<>();
-          d.add(dataPoint);
-          centroid.setDataPoints(d);
-          return;
-        }
-        // it does not contain the dataPoint already
-        // add the dataPoint to its existing list
-        if (!centroid.getDataPoints().contains(dataPoint)) {
-          centroid.getDataPoints().add(dataPoint);
-          return;
-        }
-        // if it already contains return
+      // it does not contain the dataPoint already
+      // add the dataPoint to its existing list
+      if (!centroid.getDataPoints().contains(dataPoint)) {
+        centroid.getDataPoints().add(dataPoint);
         return;
       }
+      // if it already contains return
+      return;
   }
 
 
@@ -165,5 +168,21 @@ public class KMeansClusteringModelImpl implements IKMeansClusteringModel {
     }
 
     return finalCentroids;
+  }
+
+  private int generateRandom(ArrayList<DataPoint> dataSets) {
+    if(dataSets.size() == 1) {
+      return 0;
+    }
+    int rand = random.nextInt(dataSets.size() - 1);
+    return rand > 0 ? rand : generateRandom(dataSets);
+  }
+
+  private Centroid createCentroid(ArrayList<DataPoint> dataSets) {
+    DataPoint d = dataSets.get(generateRandom(dataSets));
+    double xCoordinate = d.getXCoordinate();
+    double yCoordinate = d.getYCoordinate();
+    Centroid centroid = new Centroid(xCoordinate, yCoordinate);
+    return centroid;
   }
 }

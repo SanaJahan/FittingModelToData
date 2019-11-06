@@ -31,11 +31,9 @@ public class LinearRegressionView {
     plotter.setDimensions(-800, 800, -850, 800);
 
     List<Double> linearBestFit = dataController.getLinearBestFit();
-    int y1 = (int) (Math.floor(linearBestFit.get(1)
-            - (linearBestFit.get(2) * -300) / linearBestFit.get(3)));
-    int x2 = (int) (Math.floor(linearBestFit.get(0)
-            - (linearBestFit.get(3) * 300) / linearBestFit.get(2)));
-    
+    int y1 = (int) (Math.floor(linearBestFit.get(1) - (linearBestFit.get(2) * -300) / linearBestFit.get(3)));
+    int x2 = (int) (Math.floor(linearBestFit.get(0) - (linearBestFit.get(3) * 300) / linearBestFit.get(2)));
+
     plotter.addLine(-300, y1, x2, 300);
     for (DataPoint d : dataController.getDataPoints())
       plotter.addPoint((int) Math.floor(d.getXCoordinate()), (int) Math.floor(d.getYCoordinate()));

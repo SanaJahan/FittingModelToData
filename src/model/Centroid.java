@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Centroid {
   double xCoordinate;
@@ -34,5 +35,19 @@ public class Centroid {
 
   public void setDataPoints(ArrayList<DataPoint> dataPoints) {
     this.dataPoints = dataPoints;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (o == null || getClass() != o.getClass()) return false;
+    Centroid centroid = (Centroid) o;
+    return Double.compare(centroid.xCoordinate, xCoordinate) == 0 &&
+            Double.compare(centroid.yCoordinate, yCoordinate) == 0 &&
+            Objects.equals(dataPoints, centroid.dataPoints);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(xCoordinate, yCoordinate, dataPoints);
   }
 }
