@@ -78,5 +78,9 @@ public class TestLinearRegressionModel {
     assertEquals(1645.6,linear.sumOfYSquares(dataSet),6);
   }
 
-
+  @Test (expected = IllegalArgumentException.class)
+  public void linearEmptyDataset() throws IOException {
+    dataSet.clear();
+    linear = new LinearRegressionModelImpl(dataSet);
+  }
 }
