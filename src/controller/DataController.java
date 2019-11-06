@@ -39,19 +39,24 @@ public class DataController extends AbstractDataController {
   @Override
   public void readDataSet(String fileName) throws IOException {
     dataPoints = readFiles(fileName);
+    if(dataPoints.size() <= 0) {
+      throw new IOException("No data points exist for the given filename");
+    }
   }
 
+  @Override
   public ArrayList<DataPoint> getDataPoints() {
     return dataPoints;
   }
 
   // return the k-means result
+  @Override
   public ArrayList<Centroid> getKMeansCluster() {
     kMeansClusteringModel = new KMeansClusteringModelImpl();
     return kMeansClusteringModel.bestFit(dataPoints, K, new EuclideanDistance(), MAX_ITERATIONS);
   }
 
-
+  @Override
   public List<Double> getLinearBestFit() throws IOException {
     linearRegressionModel = new LinearRegressionModelImpl(dataPoints);
     List<Double> list = new ArrayList<>();
