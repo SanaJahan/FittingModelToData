@@ -42,7 +42,7 @@ public class LinearRegressionView {
 
 
     try {
-      plotter.write("lr.png");
+      plotter.write("linear.png");
     } catch (IOException e) {
       e.printStackTrace();
     }
