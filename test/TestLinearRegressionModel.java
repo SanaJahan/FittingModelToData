@@ -1,8 +1,10 @@
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import controller.DataController;
+import model.DataPoint;
 import model.ILinearRegressionModel;
 import model.LinearRegressionModelImpl;
 
@@ -10,14 +12,14 @@ import model.LinearRegressionModelImpl;
 public class TestLinearRegressionModel {
 
   ILinearRegressionModel linear;
-  DataController dc;
+  DataController dc = new DataController();
 
 
   @Test
   public void linearModelTestOne() throws IOException {
     dc = new DataController();
-    dc.readDataSet("lineardata")
-    linear = new LinearRegressionModelImpl();
+    ArrayList<DataPoint> dataset = dc.readDataSet("linedata-1");
+    linear = new LinearRegressionModelImpl(dataset);
   }
 
 }

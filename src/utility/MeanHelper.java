@@ -24,7 +24,7 @@ public class MeanHelper  {
     for (DataPoint d: xCoordinates) {
       sum += d.getXCoordinate();
     }
-    int totalX = dc.readLineDataSet().size();
+    int totalX = dc.readDataSet().size();
     double mean = sum/totalX;
     return mean;
   }// needed in k-means hence goes to abstract class
@@ -41,7 +41,7 @@ public class MeanHelper  {
     for (DataPoint d: yCoordinates) {
       sum += d.getYCoordinate();
     }
-    int totalY = dc.readLineDataSet().size();
+    int totalY = dc.readDataSet().size();
   double mean = sum/totalY;
     return mean;
   }// needed in k-means hence goes to abstract class

@@ -28,7 +28,7 @@ public class DataController extends AbstractDataController {
    * @throws IOException IOException may be thrown.
    */
   @Override
-  public ArrayList readDataSet(String fileName) throws IOException {
+  public ArrayList<DataPoint> readDataSet(String fileName) throws IOException {
     ArrayList<DataPoint> dataPoints = readFiles(fileName);
     return dataPoints;
   }
