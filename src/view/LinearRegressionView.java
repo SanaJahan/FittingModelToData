@@ -1,6 +1,7 @@
 package view;
 
 import java.io.IOException;
+import java.util.List;
 
 import controller.DataController;
 import model.DataPoint;
@@ -21,17 +22,23 @@ public class LinearRegressionView {
   public static void main(String[] args) throws IOException {
     displayLinearRegression();
   }
+
   public static void displayLinearRegression() throws IOException {
     ImagePlotter plotter = new ImagePlotter();
     plotter.setWidth(500);
     plotter.setHeight(500);
 
-    plotter.setDimensions(-800,800,-850,800);
+    plotter.setDimensions(-800, 800, -850, 800);
 
-    plotter.addLine(-300,(int)Math.floor(dataController.getLinearBestFit().get(1)),
-            (int)Math.floor(dataController.getLinearBestFit().get(0)),300);
-      for (DataPoint d : dataController.getDataPoints())
-        plotter.addPoint((int) Math.floor(d.getXCoordinate()), (int) Math.floor(d.getYCoordinate()));
+    List<Double> linearBestFit = dataController.getLinearBestFit();
+    int y1 = (int) (Math.floor(linearBestFit.get(1) - (linearBestFit.get(2) * -300) / linearBestFit.get(3)));
+    int x2 = (int) (Math.floor(linearBestFit.get(0) - (linearBestFit.get(3) * 300) / linearBestFit.get(2)));
+
+    System.out.println(y1+ " "+ x2);
+    System.out.println(linearBestFit.get(0) + " " + linearBestFit.get(1));
+    plotter.addLine(-300, y1, x2, 300);
+    for (DataPoint d : dataController.getDataPoints())
+      plotter.addPoint((int) Math.floor(d.getXCoordinate()), (int) Math.floor(d.getYCoordinate()));
 
 
     try {

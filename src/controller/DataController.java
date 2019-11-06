@@ -56,8 +56,12 @@ public class DataController extends AbstractDataController {
     linearRegressionModel = new LinearRegressionModelImpl(dataPoints);
     List<Double> list = new ArrayList<>();
     double c = linearRegressionModel.computeC();
-    list.add(c / linearRegressionModel.computeXCoordinate());
-    list.add(c / linearRegressionModel.computeYCoordinate());
+    System.out.println("c is:" + c);
+    list.add((-1 * c) / linearRegressionModel.computeXCoordinate()); //0
+    list.add((-1 * c) / linearRegressionModel.computeYCoordinate()); //1
+    list.add(linearRegressionModel.computeXCoordinate()); //2
+    list.add(linearRegressionModel.computeYCoordinate()); //3
+
     return list;
   }
 

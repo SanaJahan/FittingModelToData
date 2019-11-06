@@ -22,16 +22,12 @@ public abstract class AbstractDataController {
    * @return the list of files for the given category of data
    */
 
-  public File[] createFiles(String category) {
+  protected File[] createFiles(String category) {
     String target_dir = "./data";
     File dir = new File(target_dir);
     File[] files = dir.listFiles((dir1, name) -> {
       boolean result;
-      if (name.startsWith(category)) {
-        result = true;
-      } else {
-        result = false;
-      }
+      result = name.startsWith(category);
       return result;
     });
     return files;
@@ -43,7 +39,7 @@ public abstract class AbstractDataController {
    * in each line of those files. They will be separated into a list of data points.
    * @throws IOException IOException may be thrown.
    */
-  public ArrayList<DataPoint> readFiles(String category) throws IOException {
+  protected ArrayList<DataPoint> readFiles(String category) throws IOException {
     ArrayList<DataPoint> dataPoints = new ArrayList<>();
     for (File f : createFiles(category)) {
       BufferedReader inputStream = null;

@@ -1,6 +1,5 @@
 package utility;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import model.DataPoint;
@@ -14,7 +13,6 @@ public class MeanHelper  {
    * Computes the mean of the X coordinates of all the DataPoints.
    * @param xCoordinates The list of DataPoints.
    * @return The final mean.
-   * @throws IOException Thrown at IOException.
    */
   public double meanOfXCoordinates(ArrayList<DataPoint> xCoordinates) {
     double sum = 0;
@@ -22,15 +20,13 @@ public class MeanHelper  {
       sum += d.getXCoordinate();
     }
     int totalX = xCoordinates.size();
-    double mean = sum/totalX;
-    return mean;
+    return sum/totalX;
   }// needed in k-means hence goes to abstract class
 
   /**
    * Computes the mean of the Y coordinates of all the DataPoints.
    * @param yCoordinates The list of DataPoints.
    * @return The final mean.
-   * @throws IOException Thrown at IOException.
    */
   public double meanOfYCoordinates(ArrayList<DataPoint> yCoordinates) {
     double sum = 0;
@@ -38,8 +34,7 @@ public class MeanHelper  {
       sum += d.getYCoordinate();
     }
     int totalY = yCoordinates.size();
-  double mean = sum/totalY;
-    return mean;
+     return sum/totalY;
   }// needed in k-means hence goes to abstract class
 
 }
