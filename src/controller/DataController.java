@@ -35,18 +35,6 @@ public class DataController extends AbstractDataController {
 
 
 
-  /**
-   * Reads each dataset file and will create the DataPoint objects from the coordinates, mentioned
-   * in each line of those files. They will be separated into a list of data points.
-   * @throws IOException IOException may be thrown.
-   */
-  public ArrayList<DataPoint> readLineDataSet() throws IOException {
-    ArrayList<DataPoint> dataPoints = readFiles("linedata");
-    return dataPoints;
-  }
-
-
-
   // return the k-means result
   public ArrayList<Centroid> getKMeansCluster(String input) throws IOException {
     kMeansClusteringModel = new KMeansClusteringModelImpl();

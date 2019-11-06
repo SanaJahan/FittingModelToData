@@ -3,7 +3,6 @@ package model;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import controller.DataController;
 import utility.MeanHelper;
 
 /**
@@ -85,18 +84,19 @@ public class LinearRegressionModelImpl implements ILinearRegressionModel{
    * @throws IllegalArgumentException Thrown when the result does not match the requirements.
    * @throws IOException Thrown at IOException.
    */
-  public double computeFunctionOfT() throws IllegalArgumentException,IOException {
+  public void computeFunctionOfT() throws IllegalArgumentException,IOException {
     double functionT = ((sumOfYSquares(dataPoints) - sumOfXSquares(dataPoints)) * Math.cos(computeDTheta()))
             - 2 * sumOfXYSquares(dataPoints) * Math.sin(computeDTheta());
     double functionT180 = ((sumOfYSquares(dataPoints) - sumOfXSquares(dataPoints)) * Math.cos(computeDTheta() + Math.PI))
             - 2 * sumOfXYSquares(dataPoints) * Math.sin(computeDTheta() + Math.PI);
     if (functionT > 0) {
       t = computeDTheta();
-      return functionT;
     }
-    else{
+    else if(functionT180 > 0 ){
       t = computeDTheta() + Math.PI;
-      return functionT180;
+    }
+    else {
+      throw new IllegalArgumentException();
     }
   }
 

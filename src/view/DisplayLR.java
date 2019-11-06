@@ -17,9 +17,9 @@ public class DisplayLR {
 
     plotter.setDimensions(-800,800,-850,800);
 
-    plotter.addLine(-300,(int)Math.floor(dataController.getLinearBestFit().get(1)),
-            (int)Math.floor(dataController.getLinearBestFit().get(0)),300);
-      for (DataPoint d : dataController.readLineDataSet()){
+    plotter.addLine(-300,(int)Math.floor(dataController.getLinearBestFit("linedata-1").get(1)),
+            (int)Math.floor(dataController.getLinearBestFit("linedata-1").get(0)),300);
+      for (DataPoint d : dataController.readDataSet("linedata-1")){
         plotter.addPoint((int) Math.floor(d.getXCoordinate()), (int) Math.floor(d.getYCoordinate()));
       }
 
