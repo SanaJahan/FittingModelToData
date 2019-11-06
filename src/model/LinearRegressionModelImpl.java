@@ -14,7 +14,8 @@ public class LinearRegressionModelImpl implements ILinearRegressionModel{
   private MeanHelper meanHelper = new MeanHelper();
   private DataController dataController = new DataController();
   private final ArrayList<DataPoint> dataPoints = dataController.readLineDataSet();
-
+  private final double meanY = meanHelper.meanOfYCoordinates(dataPoints);
+  private final double meanX = meanHelper.meanOfYCoordinates(dataPoints);
   private static double t = 0;
 
   public LinearRegressionModelImpl() throws IOException {
@@ -29,7 +30,6 @@ public class LinearRegressionModelImpl implements ILinearRegressionModel{
    * @throws IOException Thrown at IOException.
    */
   public double sumOfYSquares(ArrayList<DataPoint> lineCoordinates) throws IOException {
-    double meanY = meanHelper.meanOfYCoordinates(dataPoints);
     double sum = 0;
     for (DataPoint d:lineCoordinates) {
       sum += (d.getYCoordinate() - meanY) * (d.getYCoordinate() - meanY);
@@ -45,7 +45,6 @@ public class LinearRegressionModelImpl implements ILinearRegressionModel{
    * @throws IOException Thrown at IOException.
    */
   public double sumOfXSquares(ArrayList<DataPoint> lineCoordinates) throws IOException {
-    double meanX = meanHelper.meanOfXCoordinates(dataPoints);
     double sum = 0;
     for (DataPoint d:lineCoordinates) {
       sum += (d.getXCoordinate() - meanX) * (d.getXCoordinate() - meanX);
@@ -61,8 +60,6 @@ public class LinearRegressionModelImpl implements ILinearRegressionModel{
    * @throws IOException Thrown at IOException.
    */
   public double sumOfXYSquares(ArrayList<DataPoint> lineCoordinates) throws IOException {
-    double meanX = meanHelper.meanOfXCoordinates(dataPoints);
-    double meanY = meanHelper.meanOfYCoordinates(dataPoints);
     double sum = 0;
     for (DataPoint d:lineCoordinates) {
       sum += (d.getXCoordinate() - meanX) * (d.getYCoordinate() - meanY);
@@ -77,9 +74,7 @@ public class LinearRegressionModelImpl implements ILinearRegressionModel{
    * @throws IOException Thrown at the IOException.
    */
   public double computeDTheta() throws IOException{
-    dataController = new DataController();
-    ArrayList<DataPoint> dc = dataController.readLineDataSet();
-    double d = (2 * sumOfXYSquares(dc)) / (sumOfXSquares(dc) - sumOfYSquares(dc));
+    double d = (2 * sumOfXYSquares(dataPoints)) / (sumOfXSquares(dataPoints) - sumOfYSquares(dataPoints));
     return Math.atan(Math.toRadians(d));
   }
 
@@ -113,17 +108,17 @@ public class LinearRegressionModelImpl implements ILinearRegressionModel{
   public double computeXCoordinate() throws IOException {
     computeFunctionOfT();
     double a = Math.cos(Math.toRadians(t/2));
-    return -a;
+    return a;
   }
 
   public double computeYCoordinate() {
     double b = Math.sin(Math.toRadians(t/2));
-    return -b;
+    return b;
   }
 
   public double computeC() throws IOException {
-    double c = computeXCoordinate() + computeYCoordinate();
-    return c;
+    double c = -computeXCoordinate()*meanX - computeYCoordinate()*meanY;
+    return -c;
   }
 
 
