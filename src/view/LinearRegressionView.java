@@ -11,7 +11,7 @@ public class LinearRegressionView {
 
   static {
     try {
-      dataController = new DataController("linear");
+      dataController = new DataController("linedata-1");
     } catch (IOException e) {
       e.printStackTrace();
     }

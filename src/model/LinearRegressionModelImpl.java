@@ -1,9 +1,7 @@
 package model;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
-import controller.DataController;
 import utility.MeanHelper;
 
 /**
@@ -11,14 +9,16 @@ import utility.MeanHelper;
  * get the best fit of the line.
  */
 public class LinearRegressionModelImpl implements ILinearRegressionModel{
-  private MeanHelper meanHelper = new MeanHelper();
   private ArrayList<DataPoint> dataPoints;
-  private final double meanY = meanHelper.meanOfYCoordinates(dataPoints);
-  private final double meanX = meanHelper.meanOfYCoordinates(dataPoints);
+  private final double meanY;
+  private final double meanX;
   private static double t = 0;
 
   public LinearRegressionModelImpl(ArrayList<DataPoint> dataPoints) {
+    MeanHelper meanHelper = new MeanHelper();
     this.dataPoints = dataPoints;
+    meanY = meanHelper.meanOfYCoordinates(dataPoints);
+    meanX = meanHelper.meanOfXCoordinates(dataPoints);
   }
 
 
@@ -27,7 +27,6 @@ public class LinearRegressionModelImpl implements ILinearRegressionModel{
    * from the the mean of all the Y coordinates.
    * @param lineCoordinates The list of DataPoints.
    * @return The total summation.
-   * @throws IOException Thrown at IOException.
    */
   public double sumOfYSquares(ArrayList<DataPoint> lineCoordinates)  {
     double sum = 0;
@@ -42,7 +41,6 @@ public class LinearRegressionModelImpl implements ILinearRegressionModel{
    * from the mean of all the X coordinates.
    * @param lineCoordinates The list of DataPoints.
    * @return The total summation.
-   * @throws IOException Thrown at IOException.
    */
   public double sumOfXSquares(ArrayList<DataPoint> lineCoordinates) {
     double sum = 0;
@@ -57,7 +55,6 @@ public class LinearRegressionModelImpl implements ILinearRegressionModel{
    * X coordinates and the Y coordinate subtracted from the mean of all the Y coordinates.
    * @param lineCoordinates The list of DataPoints.
    * @return The total summation.
-   * @throws IOException Thrown at IOException.
    */
   public double sumOfXYSquares(ArrayList<DataPoint> lineCoordinates) {
     double sum = 0;
@@ -71,7 +68,6 @@ public class LinearRegressionModelImpl implements ILinearRegressionModel{
    * Computes the tan inverse value of a formula computation that is required,
    * to perform the least squares operation.
    * @return Tan inverse value.
-   * @throws IOException Thrown at the IOException.
    */
   public double computeDTheta() {
     double d = (2 * sumOfXYSquares(dataPoints)) / (sumOfXSquares(dataPoints) - sumOfYSquares(dataPoints));
@@ -81,9 +77,7 @@ public class LinearRegressionModelImpl implements ILinearRegressionModel{
   /**
    * Computes a derivation formula for theta and for theta - 180 and it will return the result,
    * depending on whichever function renders positive.
-   * @return The derivative function result.
    * @throws IllegalArgumentException Thrown when the result does not match the requirements.
-   * @throws IOException Thrown at IOException.
    */
   public void computeFunctionOfT() throws IllegalArgumentException {
     double functionT = ((sumOfYSquares(dataPoints) - sumOfXSquares(dataPoints)) * Math.cos(computeDTheta()))
@@ -103,22 +97,18 @@ public class LinearRegressionModelImpl implements ILinearRegressionModel{
   /**
    * Computes the final model calculation of the best fitting line.
    * @return Final computed value for the best fitting line.
-   * @throws IOException Thrown at IOException.
    */
   public double computeXCoordinate() {
     computeFunctionOfT();
-    double a = Math.cos(t/2);
-    return a;
+    return Math.cos(t/2);
   }
 
   public double computeYCoordinate() {
-    double b = Math.sin(t/2);
-    return b;
+    return Math.sin(t/2);
   }
 
   public double computeC() {
-    double c = -computeXCoordinate() * meanX - computeYCoordinate() * meanY;
-    return -c;
+    return  -computeXCoordinate() * meanX - computeYCoordinate() * meanY;
   }
 
 

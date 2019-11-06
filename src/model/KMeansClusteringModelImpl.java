@@ -1,6 +1,5 @@
 package model;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -32,7 +31,7 @@ public class KMeansClusteringModelImpl implements IKMeansClusteringModel {
 
 
   @Override
-  public Centroid nearestCentroid(DataPoint dataPoint, ArrayList<Centroid> clusters, IDistance IDistance) throws IOException {
+  public Centroid nearestCentroid(DataPoint dataPoint, ArrayList<Centroid> clusters, IDistance IDistance) {
     double minimumDistance = Double.MAX_VALUE;
     Centroid nearest = null;
     for (Centroid cluster : clusters) {
@@ -49,7 +48,6 @@ public class KMeansClusteringModelImpl implements IKMeansClusteringModel {
 
   @Override
   public void assignToCluster(ArrayList<Centroid> clusters, DataPoint dataPoint, Centroid centroid) {
-    for (Centroid c : clusters) {
       // if the centroid not part of the cluster simply return
       if (!clusters.contains(centroid)) {
         return;
@@ -71,29 +69,27 @@ public class KMeansClusteringModelImpl implements IKMeansClusteringModel {
         // if it already contains return
         return;
       }
-    }
   }
 
 
   @Override
-  public Centroid relocate(Centroid centroid) throws IOException {
+  public void relocate(Centroid centroid) {
     MeanHelper meanHelper = new MeanHelper();
     // if there is not dataset in the centroid list, return the centroid as it is
     if (centroid.getDataPoints() == null || centroid.getDataPoints().isEmpty()) {
-      return centroid;
+      return;
     }
     // if it has a list, find the mean of the coordinates and set the centroid's x and y to that value
     double meanX = meanHelper.meanOfXCoordinates(centroid.getDataPoints());
     double meanY = meanHelper.meanOfYCoordinates(centroid.getDataPoints());
     centroid.setxCoordinate(meanX);
     centroid.setyCoordinate(meanY);
-    return centroid;
   }
 
 
   // relocates all the clusters
   @Override
-  public ArrayList<Centroid> relocateCentroids(ArrayList<Centroid> clusters) throws IOException {
+  public ArrayList<Centroid> relocateCentroids(ArrayList<Centroid> clusters) {
     for (Centroid c : clusters) {
       relocate(c);
     }
@@ -102,7 +98,7 @@ public class KMeansClusteringModelImpl implements IKMeansClusteringModel {
 
   // method to improve the result
   @Override
-  public ArrayList<Centroid> fit(ArrayList<DataPoint> dataPoints, int k, IDistance IDistance, int maxIterations) throws IOException {
+  public ArrayList<Centroid> fit(ArrayList<DataPoint> dataPoints, int k, IDistance IDistance, int maxIterations) {
     ArrayList<Centroid> clusters = createClusters(dataPoints, k);
     ArrayList<Centroid> lastState = new ArrayList<>();
 
@@ -156,7 +152,7 @@ public class KMeansClusteringModelImpl implements IKMeansClusteringModel {
 
 
   @Override
-  public ArrayList<Centroid> bestFit(ArrayList<DataPoint> dataPoints, int k, IDistance IDistance, int max) throws IOException {
+  public ArrayList<Centroid> bestFit(ArrayList<DataPoint> dataPoints, int k, IDistance IDistance, int max) {
     for (int i = 0; i < 10; i++) {
       ArrayList<Centroid> centroids = fit(dataPoints, k, new EuclideanDistance(), max);
       if (ne < error) {

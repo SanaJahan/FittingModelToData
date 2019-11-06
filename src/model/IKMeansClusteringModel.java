@@ -17,7 +17,7 @@ public interface IKMeansClusteringModel {
 
   void assignToCluster(ArrayList<Centroid> clusters, DataPoint dataPoint, Centroid centroid);
 
-  Centroid relocate(Centroid centroid) throws IOException;
+  void relocate(Centroid centroid) throws IOException;
 
   ArrayList<Centroid> relocateCentroids(ArrayList<Centroid> clusters) throws IOException;
 
