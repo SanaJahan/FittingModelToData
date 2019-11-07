@@ -35,7 +35,7 @@ public class ImagePlotter {
   private int height;
 
   /**
-   * Image Plotter constructor
+   * Image Plotter constructor.
    */
   public ImagePlotter() {
     reset();
@@ -204,10 +204,7 @@ public class ImagePlotter {
     }
 
     String imageFormat = path.substring(path.indexOf(".") + 1);
-      ImageIO.write(
-              image,
-              imageFormat,
-              new FileOutputStream(path));
+    ImageIO.write(image, imageFormat, new FileOutputStream(path));
 
   }
 

@@ -48,8 +48,9 @@ public class LinearRegressionView {
             / linearBestFit.get(2)));
 
     plotter.addLine(-300, y1, x2, 300);
-    for (DataPoint d : dataController.getDataPoints())
+    for (DataPoint d : dataController.getDataPoints()) {
       plotter.addPoint((int) Math.floor(d.getXCoordinate()), (int) Math.floor(d.getYCoordinate()));
+    }
 
 
     try {

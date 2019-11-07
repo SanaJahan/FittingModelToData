@@ -19,7 +19,7 @@ public class KMeansClusterView {
    * @throws IOException Thrown at IOException.
    */
   public static void main(String[] args) throws IOException {
-     displayClusterMean();
+    displayClusterMean();
   }
 
   /**
@@ -38,10 +38,12 @@ public class KMeansClusterView {
     int i = 0;
     ArrayList<Centroid> centroids = dataController.getKMeansCluster();
     for (Centroid c: centroids) {
-      plotter.addPoint((int)Math.floor(c.getxCoordinate()),(int)Math.floor(c.getyCoordinate()),Color.YELLOW);
-      if(c.getDataPoints() != null) {
+      plotter.addPoint((int)Math.floor(c.getxCoordinate()),(int)Math.floor(c.getyCoordinate()),
+              Color.YELLOW);
+      if (c.getDataPoints() != null) {
         for (DataPoint d : c.getDataPoints()) {
-          plotter.addPoint((int) Math.floor(d.getXCoordinate()), (int) Math.floor(d.getYCoordinate()), color[i]);
+          plotter.addPoint((int) Math.floor(d.getXCoordinate()),
+                  (int) Math.floor(d.getYCoordinate()), color[i]);
         }
       }
       i++;

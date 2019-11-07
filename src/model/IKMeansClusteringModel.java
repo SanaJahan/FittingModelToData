@@ -19,10 +19,12 @@ public interface IKMeansClusteringModel {
 
   ArrayList<Centroid> relocateCentroids(ArrayList<Centroid> clusters) throws IOException;
 
-  ArrayList<Centroid> fit(ArrayList<DataPoint> dataPoints, int k, IDistance IDistance, int maxIterations);
+  ArrayList<Centroid> fit(ArrayList<DataPoint> dataPoints, int k, IDistance distance,
+                          int maxIterations);
 
-  double newError(ArrayList<Centroid> centroids, IDistance IDistance) throws IOException;
+  double newError(ArrayList<Centroid> centroids, IDistance distance) throws IOException;
 
-  ArrayList<Centroid> bestFit(ArrayList<DataPoint> dataPoints, int k, IDistance IDistance, int max);
+  ArrayList<Centroid> bestFit(ArrayList<DataPoint> dataPoints, int k, IDistance distance,
+                              int max);
 
 }

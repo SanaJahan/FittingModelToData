@@ -18,7 +18,7 @@ public class TestLinearRegressionModel {
   ILinearRegressionModel linear;
 
   ArrayList<DataPoint> dataSet = new ArrayList<>();
-  
+
   @Before
   public void setUp() {
     dataSet.add(new DataPoint(1,3));

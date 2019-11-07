@@ -21,8 +21,6 @@ public class DataController extends AbstractDataController {
 
   public static final int K = 3;
   public static final int MAX_ITERATIONS = 1000;
-  private IKMeansClusteringModel kMeansClusteringModel;
-  private ILinearRegressionModel linearRegressionModel;
   private ArrayList<DataPoint> dataPoints;
 
   /**
@@ -44,7 +42,7 @@ public class DataController extends AbstractDataController {
   @Override
   public void readDataSet(String fileName) throws IOException {
     dataPoints = readFiles(fileName);
-    if(dataPoints.size() <= 0) {
+    if (dataPoints.size() <= 0) {
       throw new IOException("No data points exist for the given filename");
     }
   }
@@ -64,7 +62,7 @@ public class DataController extends AbstractDataController {
    */
   @Override
   public ArrayList<Centroid> getKMeansCluster() {
-    kMeansClusteringModel = new KMeansClusteringModelImpl();
+    IKMeansClusteringModel kMeansClusteringModel = new KMeansClusteringModelImpl();
     return kMeansClusteringModel.bestFit(dataPoints, K, new EuclideanDistance(), MAX_ITERATIONS);
   }
 
@@ -76,7 +74,7 @@ public class DataController extends AbstractDataController {
    */
   @Override
   public List<Double> getLinearBestFit() throws IOException {
-    linearRegressionModel = new LinearRegressionModelImpl(dataPoints);
+    ILinearRegressionModel linearRegressionModel = new LinearRegressionModelImpl(dataPoints);
     List<Double> list = new ArrayList<>();
     double c = linearRegressionModel.computeC();
     list.add((-1 * c) / linearRegressionModel.computeXCoordinate()); //0
