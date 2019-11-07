@@ -35,7 +35,7 @@ public class KMeansClusterView {
     }
 
     try {
-      plotter.write("kMeans8.png");
+      plotter.write("kMeans13.png");
     } catch (IOException e) {
       e.printStackTrace();
     }

@@ -3,6 +3,9 @@ package model;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Interface for implementation of the LinearRegressionModelImpl class for fitting the best line.
+ */
 public interface ILinearRegressionModel {
 
 
