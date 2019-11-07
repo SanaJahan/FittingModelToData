@@ -10,12 +10,15 @@ import model.LinearRegressionModelImpl;
 
 import static org.junit.Assert.assertEquals;
 
-
+/**
+ * Tester class to test the Linear regression implementation methods.
+ */
 public class TestLinearRegressionModel {
 
   ILinearRegressionModel linear;
 
   ArrayList<DataPoint> dataSet = new ArrayList<>();
+  
   @Before
   public void setUp() {
     dataSet.add(new DataPoint(1,3));

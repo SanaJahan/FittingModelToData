@@ -5,6 +5,9 @@ import java.util.Random;
 
 import utility.MeanHelper;
 
+/**
+ * Contains the implementations of the methods required to perform KMeans clustering.
+ */
 public class KMeansClusteringModelImpl implements IKMeansClusteringModel {
 
   private static final Random random = new Random();
@@ -22,11 +25,12 @@ public class KMeansClusteringModelImpl implements IKMeansClusteringModel {
    * @return the randomly chosen k points for the cluster
    */
   @Override
-  public ArrayList<Centroid> createClusters(ArrayList<DataPoint> dataSets, int k) throws IllegalArgumentException {
+  public ArrayList<Centroid> createClusters(ArrayList<DataPoint> dataSets, int k)
+          throws IllegalArgumentException {
     if (dataSets == null || dataSets.size() < 1) {
       throw new IllegalArgumentException("no data sets found");
     }
-    if( k <= dataSets.size()) {
+    if ( k <= dataSets.size()) {
       ArrayList<Centroid> clusters = new ArrayList<>();
       for (int i = 0; i < k; i++) {
         Centroid centroid = createCentroid(dataSets);
@@ -51,7 +55,8 @@ public class KMeansClusteringModelImpl implements IKMeansClusteringModel {
    * @return The nearest cluster based on the computation.
    */
   @Override
-  public Centroid nearestCentroid(DataPoint dataPoint, ArrayList<Centroid> clusters, IDistance distance) {
+  public Centroid nearestCentroid(DataPoint dataPoint, ArrayList<Centroid> clusters,
+                                  IDistance distance) {
     double minimumDistance = Double.MAX_VALUE;
     Centroid nearest = null;
     for (Centroid cluster : clusters) {
@@ -73,26 +78,27 @@ public class KMeansClusteringModelImpl implements IKMeansClusteringModel {
    * @param centroid Centroid to assign.
    */
   @Override
-  public void assignToCluster(ArrayList<Centroid> clusters, DataPoint dataPoint, Centroid centroid) {
+  public void assignToCluster(ArrayList<Centroid> clusters, DataPoint dataPoint,
+                              Centroid centroid) {
     // if the centroid not part of the cluster simply return
     if (!clusters.contains(centroid)) {
       return;
     }
-      // if the list of the centroid is null, create a new list and then add it
-      if (centroid.getDataPoints() == null) {
-        ArrayList<DataPoint> d = new ArrayList<>();
-        d.add(dataPoint);
-        centroid.setDataPoints(d);
-        return;
-      }
-      // it does not contain the dataPoint already
-      // add the dataPoint to its existing list
-      if (!centroid.getDataPoints().contains(dataPoint)) {
-        centroid.getDataPoints().add(dataPoint);
-        return;
-      }
-      // if it already contains return
+    // if the list of the centroid is null, create a new list and then add it
+    if (centroid.getDataPoints() == null) {
+      ArrayList<DataPoint> d = new ArrayList<>();
+      d.add(dataPoint);
+      centroid.setDataPoints(d);
       return;
+    }
+    // it does not contain the dataPoint already
+    // add the dataPoint to its existing list
+    if (!centroid.getDataPoints().contains(dataPoint)) {
+      centroid.getDataPoints().add(dataPoint);
+      return;
+    }
+    // if it already contains return
+    return;
   }
 
 
@@ -107,7 +113,8 @@ public class KMeansClusteringModelImpl implements IKMeansClusteringModel {
     if (centroid.getDataPoints() == null || centroid.getDataPoints().isEmpty()) {
       return;
     }
-    // if it has a list, find the mean of the coordinates and set the centroid's x and y to that value
+    // if it has a list, find the mean of the coordinates and set the centroid's
+    // x and y to that value
     double meanX = meanHelper.meanOfXCoordinates(centroid.getDataPoints());
     double meanY = meanHelper.meanOfYCoordinates(centroid.getDataPoints());
     centroid.setxCoordinate(meanX);
@@ -133,12 +140,13 @@ public class KMeansClusteringModelImpl implements IKMeansClusteringModel {
    * Improves the final result by refitting.
    * @param dataPoints List of data points.
    * @param k Number of clusters.
-   * @param IDistance Euclidean Distance.
+   * @param distance Euclidean Distance.
    * @param maxIterations The maximum number of iterations allowed.
    * @return The final list of Centroid clusters.
    */
   @Override
-  public ArrayList<Centroid> fit(ArrayList<DataPoint> dataPoints, int k, IDistance IDistance, int maxIterations) {
+  public ArrayList<Centroid> fit(ArrayList<DataPoint> dataPoints, int k, IDistance distance,
+                                 int maxIterations) {
     ArrayList<Centroid> clusters = createClusters(dataPoints, k);
     ArrayList<Centroid> lastState = new ArrayList<>();
 
@@ -147,7 +155,7 @@ public class KMeansClusteringModelImpl implements IKMeansClusteringModel {
       boolean isLastIteration = i == maxIterations - 1;
       // in each iteration we should find the nearest centroid for each dataPoint
       for (DataPoint dataPoint : dataPoints) {
-        Centroid centroid = nearestCentroid(dataPoint, clusters, IDistance);
+        Centroid centroid = nearestCentroid(dataPoint, clusters, distance);
         assignToCluster(clusters, dataPoint, centroid);
       }
 
@@ -165,29 +173,26 @@ public class KMeansClusteringModelImpl implements IKMeansClusteringModel {
       // at the end of each iteration we should relocate the centroids
       clusters = relocateCentroids(clusters);
       // calculate average  for each dataPoint in that centroid, and assign to ne
-      ne = newError(clusters, IDistance);
+      ne = newError(clusters, distance);
     }
 
     return lastState;
   }
 
-
-  //method to compute ne
-
   /**
    * Computes the ne calculation to be used in error computation.
    * @param centroids List of Centroid clusters.
-   * @param IDistance Euclidean Distance.
+   * @param distance Euclidean Distance.
    * @return New error.
    */
   @Override
-  public double newError(ArrayList<Centroid> centroids, IDistance IDistance) {
+  public double newError(ArrayList<Centroid> centroids, IDistance distance) {
     double error = 0;
     double avgOf = 1;
     for (Centroid centroid : centroids) {
       if (centroid.getDataPoints() != null) {
         for (DataPoint dataPoint : centroid.getDataPoints()) {
-          double currentDistance = IDistance.calculate(dataPoint, centroid);
+          double currentDistance = distance.calculate(dataPoint, centroid);
           error += currentDistance;
         }
         avgOf += centroid.getDataPoints().size();
@@ -201,12 +206,13 @@ public class KMeansClusteringModelImpl implements IKMeansClusteringModel {
    * Original fitting computation.
    * @param dataPoints List of data points with coordinates.
    * @param k Number of clusters.
-   * @param IDistance Euclidean Distance.
+   * @param distance Euclidean Distance.
    * @param max The maximum number of iterations allowed.
    * @return The list of Centroid clusters.
    */
   @Override
-  public ArrayList<Centroid> bestFit(ArrayList<DataPoint> dataPoints, int k, IDistance IDistance, int max) {
+  public ArrayList<Centroid> bestFit(ArrayList<DataPoint> dataPoints, int k, IDistance distance,
+                                     int max) {
     for (int i = 0; i < 10; i++) {
       ArrayList<Centroid> centroids = fit(dataPoints, k, new EuclideanDistance(), max);
       if (ne < error) {
@@ -227,7 +233,7 @@ public class KMeansClusteringModelImpl implements IKMeansClusteringModel {
    * @return Random integer.
    */
   private int generateRandom(ArrayList<DataPoint> dataSets) {
-    if(dataSets.size() == 1) {
+    if (dataSets.size() == 1) {
       return 0;
     }
     int rand = random.nextInt(dataSets.size() - 1);

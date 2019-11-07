@@ -11,7 +11,7 @@ public interface IKMeansClusteringModel {
 
   ArrayList<Centroid> createClusters(ArrayList<DataPoint> dataSets, int k);
 
-  Centroid nearestCentroid(DataPoint dataPoint, ArrayList<Centroid> clusters, IDistance IDistance);
+  Centroid nearestCentroid(DataPoint dataPoint, ArrayList<Centroid> clusters, IDistance distance);
 
   void assignToCluster(ArrayList<Centroid> clusters, DataPoint dataPoint, Centroid centroid);
 

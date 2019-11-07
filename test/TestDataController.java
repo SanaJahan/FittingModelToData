@@ -3,20 +3,35 @@ import org.junit.Test;
 import java.io.IOException;
 
 import controller.DataController;
-import model.LinearRegressionModelImpl;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * Tester class to test the methods of the Controller class.
+ */
 public class TestDataController {
 
-  LinearRegressionModelImpl linear;
   DataController dataController;
 
   @Test
-  public void getDataPointsTest() throws IOException {
+  public void getDataSetOneSizeTest() throws IOException {
     dataController = new DataController("linedata-1");
-    dataController.getDataPoints();
-    //need to change this test to check the size
+    int size = dataController.getDataPoints().size();
+    assertEquals(396,size);
+  }
+
+  @Test
+  public void getDataSetTwoSizeTest() throws IOException {
+    dataController = new DataController("linedata-2");
+    int size = dataController.getDataPoints().size();
+    assertEquals(378,size);
+  }
+
+  @Test
+  public void getDataSetThreeSizeTest() throws IOException {
+    dataController = new DataController("linedata-3");
+    int size = dataController.getDataPoints().size();
+    assertEquals(396,size);
   }
 
   @Test

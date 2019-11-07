@@ -1,6 +1,6 @@
 package view;
 
-import java.awt.*;
+import java.awt.Color;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -8,11 +8,24 @@ import controller.DataController;
 import model.Centroid;
 import model.DataPoint;
 
+/**
+ * A view class for plotting the KMeans clusters.
+ */
 public class KMeansClusterView {
 
+  /**
+   * Main class for the execution of the method in this class.
+   * @param args main static method args.
+   * @throws IOException Thrown at IOException.
+   */
   public static void main(String[] args) throws IOException {
      displayClusterMean();
   }
+
+  /**
+   * For performing the plotting operation.
+   * @throws IOException Thrown at IOException.
+   */
   public static void displayClusterMean() throws IOException {
     DataController dataController = new DataController("cluster");
     ImagePlotter plotter = new ImagePlotter();

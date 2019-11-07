@@ -18,8 +18,11 @@ public interface ILinearRegressionModel {
   double computeDTheta() throws IOException;
 
   void computeFunctionOfT() throws IllegalArgumentException,IOException;
+
   double computeYCoordinate() throws IOException;
+
   double computeXCoordinate() throws IOException;
+
   double computeC() throws IOException;
 
 

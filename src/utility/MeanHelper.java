@@ -20,7 +20,7 @@ public class MeanHelper  {
       sum += d.getXCoordinate();
     }
     int totalX = xCoordinates.size();
-    return sum/totalX;
+    return sum / totalX;
   }
 
   /**
@@ -34,7 +34,7 @@ public class MeanHelper  {
       sum += d.getYCoordinate();
     }
     int totalY = yCoordinates.size();
-     return sum/totalY;
+    return sum / totalY;
   }
 
 }

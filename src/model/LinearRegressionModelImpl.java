@@ -79,7 +79,8 @@ public class LinearRegressionModelImpl implements ILinearRegressionModel {
    * @return Tan inverse value.
    */
   public double computeDTheta() {
-    double d = (2 * sumOfXYSquares(dataPoints)) / (sumOfXSquares(dataPoints) - sumOfYSquares(dataPoints));
+    double d = (2 * sumOfXYSquares(dataPoints)) / (sumOfXSquares(dataPoints)
+            - sumOfYSquares(dataPoints));
     return Math.atan(d);
   }
 
@@ -93,8 +94,9 @@ public class LinearRegressionModelImpl implements ILinearRegressionModel {
     double theta = computeDTheta();
     double functionT = ((sumOfYSquares(dataPoints) - sumOfXSquares(dataPoints)) * Math.cos(theta))
             - (2 * sumOfXYSquares(dataPoints) * Math.sin(theta));
-    double functionT180 = ((sumOfYSquares(dataPoints) - sumOfXSquares(dataPoints)) * Math.cos(theta + Math.PI))
-            - (2 * sumOfXYSquares(dataPoints) * Math.sin(theta + Math.PI));
+    double functionT180 = ((sumOfYSquares(dataPoints) - sumOfXSquares(dataPoints))
+            * Math.cos(theta + Math.PI)) - (2 * sumOfXYSquares(dataPoints)
+            * Math.sin(theta + Math.PI));
     if (functionT > 0) {
       t = theta;
     } else if (functionT180 > 0) {

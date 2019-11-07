@@ -13,6 +13,9 @@ import model.KMeansClusteringModelImpl;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
+/**
+ * Tester class for the KMeans clustering algorithm implementation.
+ */
 public class TestKMeansClusteringModel {
   private IKMeansClusteringModel kMeansClusteringModel;
   private ArrayList<DataPoint> dataPoints = new ArrayList<>();
@@ -32,10 +35,10 @@ public class TestKMeansClusteringModel {
   }
 
   /**
-   *********************************** TEST FOR CREATING THE K CLUSTERS ***************************************
+   *********************************** TEST FOR CREATING THE K CLUSTERS **************************.
    */
   /**
-   * test for k = 0
+   * test for k = 0.
    */
   @Test
   public void shouldPassForKZero() {
@@ -45,7 +48,7 @@ public class TestKMeansClusteringModel {
   }
 
   /**
-   * test for data points empty with non-zero k
+   * test for data points empty with non-zero k.
    */
   @Test(expected = IllegalArgumentException.class)
   public void shouldThrowErrorForEmptyDataPoints() {
@@ -55,7 +58,7 @@ public class TestKMeansClusteringModel {
   }
 
   /**
-   * test with one data entry and k greater than data entry size
+   * test with one data entry and k greater than data entry size.
    */
   @Test(expected = IllegalArgumentException.class)
   public void shouldThrowErrorForKGreaterThanDataPointSize() {
@@ -64,7 +67,7 @@ public class TestKMeansClusteringModel {
   }
 
   /**
-   * test with one data entry and k = size of data entry
+   * test with one data entry and k = size of data entry.
    */
   @Test
   public void shouldReturnSameDataEntryAsCentroid() {
@@ -76,7 +79,7 @@ public class TestKMeansClusteringModel {
   }
 
   /**
-   * test with many data entries and an appropriate k
+   * test with many data entries and an appropriate k.
    */
   @Test
   public void shouldCreateKClusters() {
@@ -85,11 +88,10 @@ public class TestKMeansClusteringModel {
   }
 
   /**
-   ************************  TEST FOR GETTING THE NEAREST NEIGHBORS FOR GIVEN DATA SETS  *******************************
+   ************************  TEST FOR GETTING THE NEAREST NEIGHBORS FOR GIVEN DATA SETS  *********.
    */
-
   /**
-   * test when cluster is zero this situation will never occur since the createCluster will throw
+   * test when cluster is zero this situation will never occur since the createCluster will throw,
    * error if no cluster will get created.
    */
 
@@ -103,7 +105,7 @@ public class TestKMeansClusteringModel {
   }
 
   /**
-   * test when one data point is there and centroid is not null
+   * test when one data point is there and centroid is not null.
    */
   @Test
   public void shouldThrowErrorIfDataPointNotValid() {
@@ -116,7 +118,7 @@ public class TestKMeansClusteringModel {
   }
 
   /**
-   * test for one data point and two centroids
+   * test for one data point and two centroids.
    */
   @Test
   public void shouldGiveTheNearestCentroid() {
@@ -133,7 +135,7 @@ public class TestKMeansClusteringModel {
   }
 
   /**
-   * more than one data sets and more than one centroid
+   * more than one data sets and more than one centroid.
    */
   @Test
   public void shouldGiveCorrectClusterForAllDataSets() {
@@ -154,11 +156,10 @@ public class TestKMeansClusteringModel {
   }
 
   /**
-   * TEST THE RELOCATION OF EACH CENTROID OF THE CLUSTER
+   * TEST THE RELOCATION OF EACH CENTROID OF THE CLUSTER.
    */
-
   /**
-   * the centroid has no datasets
+   * the centroid has no datasets.
    */
   @Test
   public void shouldReturnTheCentroidWithoutRelocating() {
@@ -171,7 +172,7 @@ public class TestKMeansClusteringModel {
   }
 
   /**
-   * the centroid has one data point only
+   * the centroid has one data point only.
    */
   @Test
   public void shouldReturnCentroidWithXYSameAsDataSet() {
@@ -189,7 +190,7 @@ public class TestKMeansClusteringModel {
   }
 
   /**
-   * the centroid has more than one data set
+   * the centroid has more than one data set.
    */
   @Test
   public void tetRelocationOfCluster() {
@@ -201,6 +202,5 @@ public class TestKMeansClusteringModel {
     kMeansClusteringModel.relocate( centroids.get(0));
     assertEquals(3.5, centroids.get(0).getxCoordinate(), 1);
   }
-
 
 }

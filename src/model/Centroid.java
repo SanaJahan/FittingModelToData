@@ -52,11 +52,13 @@ public class Centroid {
    */
   @Override
   public boolean equals(Object o) {
-    if (o == null || getClass() != o.getClass()) return false;
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
     Centroid centroid = (Centroid) o;
-    return Double.compare(centroid.xCoordinate, xCoordinate) == 0 &&
-            Double.compare(centroid.yCoordinate, yCoordinate) == 0 &&
-            Objects.equals(dataPoints, centroid.dataPoints);
+    return Double.compare(centroid.xCoordinate, xCoordinate) == 0
+            && Double.compare(centroid.yCoordinate, yCoordinate) == 0
+            && Objects.equals(dataPoints, centroid.dataPoints);
   }
 
   /**
