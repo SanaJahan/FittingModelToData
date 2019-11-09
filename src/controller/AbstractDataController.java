@@ -10,8 +10,11 @@ import java.util.List;
 import model.Centroid;
 import model.DataPoint;
 
+/**
+ * Abstract class that contains all the methods that are common between both algorithms but have,
+ * different implementations.
+ */
 public abstract class AbstractDataController {
-
 
   public abstract void readDataSet(String fileName) throws IOException;
 

@@ -21,10 +21,13 @@ public class DataController extends AbstractDataController {
 
   public static final int K = 3;
   public static final int MAX_ITERATIONS = 1000;
-  private IKMeansClusteringModel kMeansClusteringModel;
-  private ILinearRegressionModel linearRegressionModel;
   private ArrayList<DataPoint> dataPoints;
 
+  /**
+   * Constructor that takes the input filename as string.
+   * @param input File name input string.
+   * @throws IOException Thrown at IOException.
+   */
   public DataController(String input) throws IOException {
     readDataSet(input);
   }
@@ -39,26 +42,39 @@ public class DataController extends AbstractDataController {
   @Override
   public void readDataSet(String fileName) throws IOException {
     dataPoints = readFiles(fileName);
-    if(dataPoints.size() <= 0) {
+    if (dataPoints.size() <= 0) {
       throw new IOException("No data points exist for the given filename");
     }
   }
 
+  /**
+   * Gets a list of the data points.
+   * @return List of data points.
+   */
   @Override
   public ArrayList<DataPoint> getDataPoints() {
     return dataPoints;
   }
 
-  // return the k-means result
+  /**
+   * Computes the final KMeans result from the list of centroids.
+   * @return The final list of centroids.
+   */
   @Override
   public ArrayList<Centroid> getKMeansCluster() {
-    kMeansClusteringModel = new KMeansClusteringModelImpl();
+    IKMeansClusteringModel kMeansClusteringModel = new KMeansClusteringModelImpl();
     return kMeansClusteringModel.bestFit(dataPoints, K, new EuclideanDistance(), MAX_ITERATIONS);
   }
 
+  /**
+   * Creates a list of formula computations that would be used in the View class to compute the,
+   * best fitting line.
+   * @return List of formuls computed results.
+   * @throws IOException Thrown at IOException.
+   */
   @Override
   public List<Double> getLinearBestFit() throws IOException {
-    linearRegressionModel = new LinearRegressionModelImpl(dataPoints);
+    ILinearRegressionModel linearRegressionModel = new LinearRegressionModelImpl(dataPoints);
     List<Double> list = new ArrayList<>();
     double c = linearRegressionModel.computeC();
     list.add((-1 * c) / linearRegressionModel.computeXCoordinate()); //0

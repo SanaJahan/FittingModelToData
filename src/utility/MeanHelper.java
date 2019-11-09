@@ -20,8 +20,8 @@ public class MeanHelper  {
       sum += d.getXCoordinate();
     }
     int totalX = xCoordinates.size();
-    return sum/totalX;
-  }// needed in k-means hence goes to abstract class
+    return sum / totalX;
+  }
 
   /**
    * Computes the mean of the Y coordinates of all the DataPoints.
@@ -34,7 +34,7 @@ public class MeanHelper  {
       sum += d.getYCoordinate();
     }
     int totalY = yCoordinates.size();
-     return sum/totalY;
-  }// needed in k-means hence goes to abstract class
+    return sum / totalY;
+  }
 
 }

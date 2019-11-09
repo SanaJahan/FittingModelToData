@@ -1,7 +1,16 @@
 package model;
 
+/**
+ * Class to calculate the Euclidean Distance.
+ */
 public class EuclideanDistance implements IDistance {
 
+  /**
+   * Computes the Euclidean distance between data point coordinates and the centroid coordinates.
+   * @param d1 DataPoint X and Y coordinates.
+   * @param d2 Centroid X and Y coordinates.
+   * @return The final computed result.
+   */
   @Override
   public double calculate(DataPoint d1, Centroid d2) {
     double sum = 0;

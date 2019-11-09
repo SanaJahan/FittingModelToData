@@ -14,6 +14,10 @@ public class LinearRegressionModelImpl implements ILinearRegressionModel {
   private final double meanX;
   private static double t = 0;
 
+  /**
+   * Constructor that takes the list of data points as the argument.
+   * @param dataPoints List of DataPoints.
+   */
   public LinearRegressionModelImpl(ArrayList<DataPoint> dataPoints) {
     MeanHelper meanHelper = new MeanHelper();
     this.dataPoints = dataPoints;
@@ -75,7 +79,8 @@ public class LinearRegressionModelImpl implements ILinearRegressionModel {
    * @return Tan inverse value.
    */
   public double computeDTheta() {
-    double d = (2 * sumOfXYSquares(dataPoints)) / (sumOfXSquares(dataPoints) - sumOfYSquares(dataPoints));
+    double d = (2 * sumOfXYSquares(dataPoints)) / (sumOfXSquares(dataPoints)
+            - sumOfYSquares(dataPoints));
     return Math.atan(d);
   }
 
@@ -89,8 +94,9 @@ public class LinearRegressionModelImpl implements ILinearRegressionModel {
     double theta = computeDTheta();
     double functionT = ((sumOfYSquares(dataPoints) - sumOfXSquares(dataPoints)) * Math.cos(theta))
             - (2 * sumOfXYSquares(dataPoints) * Math.sin(theta));
-    double functionT180 = ((sumOfYSquares(dataPoints) - sumOfXSquares(dataPoints)) * Math.cos(theta + Math.PI))
-            - (2 * sumOfXYSquares(dataPoints) * Math.sin(theta + Math.PI));
+    double functionT180 = ((sumOfYSquares(dataPoints) - sumOfXSquares(dataPoints))
+            * Math.cos(theta + Math.PI)) - (2 * sumOfXYSquares(dataPoints)
+            * Math.sin(theta + Math.PI));
     if (functionT > 0) {
       t = theta;
     } else if (functionT180 > 0) {
@@ -101,21 +107,28 @@ public class LinearRegressionModelImpl implements ILinearRegressionModel {
   }
 
   /**
-   * Computes the final model calculation of the best fitting line.
-   *
-   * @return Final computed value for the best fitting line.
+   * Computation of the a value in the ax+by+c = 0 equation.
+   * @return a.
    */
   public double computeXCoordinate() {
     return Math.cos(t / 2);
   }
 
+  /**
+   * Computation of the b value in the ax+by+c = 0 equation.
+   * @return b.
+   */
   public double computeYCoordinate() {
     return Math.sin(t / 2);
   }
 
+  /**
+   * Computes the final model calculation of the best fitting line.
+   *
+   * @return Final computed value for the best fitting line.
+   */
   public double computeC() {
     return (-1 * computeXCoordinate() * meanX) - (computeYCoordinate() * meanY);
   }
-
 
 }
